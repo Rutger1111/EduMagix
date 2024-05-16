@@ -3,16 +3,18 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 
 public class Client : MonoBehaviour
 {
     public string serverIP = "172.33.133.57"; // Set this to your server's IP address.
-    public int serverPort = 1984;             // Set this to your server's port.
+    public int serverPort = 992;             // Set this to your server's port.
     private string messageToSend = "Hello Server!"; // The message to send.
 
     private TcpClient client;
     private NetworkStream stream;
     private Thread clientReceiveThread;
+    public ClientHandler clientHandler;
 
     void Start()
     {
@@ -21,11 +23,7 @@ public class Client : MonoBehaviour
 
     void Update()
     {
-        //disable this if you are sending from another script or a button
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SendMessageToServer(messageToSend);
-        }
+
     }
 
     void ConnectToServer()
@@ -64,6 +62,7 @@ public class Client : MonoBehaviour
                         Array.Copy(bytes, 0, incomingData, 0, length);
                         // Convert byte array to string message.
                         string serverMessage = Encoding.UTF8.GetString(incomingData);
+                        clientHandler.responceToServerMessage(serverMessage);
                         Debug.Log("Server message received: " + serverMessage);
                     }
                 }
@@ -74,7 +73,10 @@ public class Client : MonoBehaviour
             Debug.Log("Socket exception: " + socketException);
         }
     }
-
+    public void ResponceToClient(string message)
+    {
+        SendMessageToServer(message);
+    }
     public void SendMessageToServer(string message)
     {
         if (client == null || !client.Connected)

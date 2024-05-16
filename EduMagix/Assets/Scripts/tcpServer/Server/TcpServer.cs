@@ -4,6 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 public class TcpServer : MonoBehaviour
 {
@@ -11,6 +13,10 @@ public class TcpServer : MonoBehaviour
     TcpClient client = null;
     NetworkStream stream = null;
     Thread thread;
+    public List<TcpClient> Clients;
+    public List<bool> ClientIsAnsweringNumber;
+    public List<bool> ClientIsAnsweringString;
+    public Serverhandler serverhandler;
 
     private void Start()
     {
@@ -38,14 +44,11 @@ public class TcpServer : MonoBehaviour
         string data = null;
         try
         {
-
-
             while (true)
             {
                 Debug.Log("Waiting for connection...");
                 client = server.AcceptTcpClient();
                 Debug.Log("Connected!");
-
                 data = null;
                 stream = client.GetStream();
 
@@ -55,9 +58,28 @@ public class TcpServer : MonoBehaviour
                 {
                     data = Encoding.UTF8.GetString(buffer, 0, i);
                     Debug.Log("Received: " + data);
+                    /*
+                    for (int Clienti = 0; Clienti < Clients.Count; Clienti ++)
+                    {
+                        
+                        if (Clients[Clienti] == client)
+                        {
+                            if(ClientIsAnsweringNumber[Clienti] == true)
+                            {
+                                
+                                serverhandler.CommandAddPoints.amount = int.Parse(data);
+                                serverhandler.CommandAddPoints.Invoke();
+                                
+                            }
+                            else if (ClientIsAnsweringString[Clienti] == true)
+                            {
 
-                    string response = "Server response: " + data.ToString();
-                    SendMessageToClient(message: response);
+                            }
+                        }
+                    }
+                    */
+                    serverhandler.responceToServerMessage(data);
+                    Debug.Log("Server response: " + data.ToString());
                 }
                 client.Close();
             }
@@ -71,7 +93,10 @@ public class TcpServer : MonoBehaviour
             server.Stop();
         }
     }
-
+    public void ResponceToClient(string message)
+    {
+        SendMessageToClient(message);
+    }
     private void OnApplicationQuit()
     {
         stream.Close();

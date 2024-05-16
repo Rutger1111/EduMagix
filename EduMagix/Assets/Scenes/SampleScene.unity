@@ -134,6 +134,9 @@ GameObject:
   - component: {fileID: 255136575}
   - component: {fileID: 255136574}
   - component: {fileID: 255136576}
+  - component: {fileID: 255136578}
+  - component: {fileID: 255136579}
+  - component: {fileID: 255136580}
   m_Layer: 0
   m_Name: server
   m_TagString: Untagged
@@ -153,6 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176752891dada4e45a25836b38ab48f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClientIsAnsweringNumber: 00
+  ClientIsAnsweringString: 0000
+  serverhandler: {fileID: 255136578}
 --- !u!4 &255136575
 Transform:
   m_ObjectHideFlags: 0
@@ -182,6 +188,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverIP: 127.0.0.1
   serverPort: 992
+  clientHandler: {fileID: 255136579}
+--- !u!114 &255136578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255136573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012e54bc89f1ac84bb13b8793edd9ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseCommandClasses: []
+  strings: []
+  CommandSelectClass: {fileID: 1202519938}
+  waitForAnswer: 0
+  server: {fileID: 255136574}
+  actionString: []
+  baseCommands:
+  - {fileID: 1202519938}
+--- !u!114 &255136579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255136573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf03395bdc6e874488e77e7959328ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfiguratingHouse: 0
+  ConfiguratingNumber: 0
+  messagesForAddPoints:
+  - SelectClass
+  - AddNumber
+  indexForAddPointsSteps: 0
+  client: {fileID: 255136576}
+--- !u!114 &255136580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255136573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60487714e4d48a642acfdce0f5de1205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseCommands: []
+  serverhandler: {fileID: 255136578}
+  strings: []
 --- !u!1 &384610949
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +337,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1202519935}
+  - {fileID: 1749630929}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -641,6 +702,7 @@ GameObject:
   - component: {fileID: 1202519935}
   - component: {fileID: 1202519936}
   - component: {fileID: 1202519937}
+  - component: {fileID: 1202519938}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -655,7 +717,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202519934}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.8668, y: 2.8668, z: 2.8668}
   m_ConstrainProportionsScale: 0
@@ -663,11 +725,11 @@ RectTransform:
   - {fileID: 1471298474}
   - {fileID: 1180744231}
   - {fileID: 1581893858}
-  m_Father: {fileID: 384610953}
+  m_Father: {fileID: 1749630929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -531, y: 260}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202519936
@@ -733,6 +795,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb3bcc912e04f4b810723b96743077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1202519938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202519934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffbf07f6fb2d5845af204408034c804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  House: 
+  serverhandler: {fileID: 255136578}
+  slider: {fileID: 0}
 --- !u!1 &1471298473
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,6 +920,42 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1749630928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1749630929}
+  m_Layer: 5
+  m_Name: HouseCounters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1749630929
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749630928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1202519935}
+  m_Father: {fileID: 384610953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -531, y: 260}
+  m_SizeDelta: {x: 458.688, y: 57.336}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
