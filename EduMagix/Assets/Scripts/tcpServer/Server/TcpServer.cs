@@ -7,7 +7,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 
-public class TcpServer : MonoBehaviour
+public class TcpServer : MonoBehaviour, IDisposable
 {
     TcpListener server = null;
     TcpClient client = null;
@@ -99,10 +99,7 @@ public class TcpServer : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        stream.Close();
-        client.Close();
-        server.Stop();
-        thread.Abort();
+
     }
 
     public void SendMessageToClient(string message)
@@ -110,5 +107,13 @@ public class TcpServer : MonoBehaviour
         byte[] msg = Encoding.UTF8.GetBytes(message);
         stream.Write(msg, 0, msg.Length);
         Debug.Log("Sent: " + message);
+    }
+
+    public void Dispose()
+    {
+        stream.Close();
+        client.Close();
+        server.Stop();
+        thread.Abort();
     }
 }

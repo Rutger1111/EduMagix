@@ -9,6 +9,7 @@ public class Serverhandler : MonoBehaviour, IWorkers
 {
     public List<BaseCommandClass> baseCommandClasses;
     public List<String> strings;
+    public List<String> House;
     public BaseCommandClass CommandSelectClass;
     public bool waitForAnswer = false;
     public TcpServer server;
@@ -69,7 +70,7 @@ public class Serverhandler : MonoBehaviour, IWorkers
                 server.ResponceToClient("numberSelectTrue");
                 break;
             case "AddNumbers":
-                baseCommandClasses.Add(baseCommands[0]);
+                baseCommandClasses.Add(baseCommands[int.Parse(actionString[2])]);
                 strings.Add(actionString[1]);
                 server.ResponceToClient("respondNumberToAdd");
                 break;

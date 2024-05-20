@@ -35,6 +35,5 @@ public class AddCommand : BaseCommandClass
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

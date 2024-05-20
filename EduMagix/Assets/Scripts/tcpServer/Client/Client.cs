@@ -4,10 +4,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.Net;
 
 public class Client : MonoBehaviour
 {
-    public string serverIP = "172.33.133.57"; // Set this to your server's IP address.
+    public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
     public int serverPort = 992;             // Set this to your server's port.
     private string messageToSend = "Hello Server!"; // The message to send.
 
@@ -18,6 +19,7 @@ public class Client : MonoBehaviour
 
     void Start()
     {
+        //serverIP = new WebClient().DownloadString("http://icanhazip.com/");
         ConnectToServer();
     }
 

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClientHandler : MonoBehaviour, IWorkers
 {
@@ -12,6 +14,8 @@ public class ClientHandler : MonoBehaviour, IWorkers
     public int indexForAddPointsSteps;
     public Client client;
     public SplitStrings splitStrings = new SplitStrings();
+    public string HouseToAddPointsTo;
+    public TMP_InputField inputField;
     void Start()
     {
         splitStrings.splitNumbers(this,"122 124, americaayaaa");
@@ -20,20 +24,35 @@ public class ClientHandler : MonoBehaviour, IWorkers
     {
         if(Input.GetKeyDown(KeyCode.D))
         {
-            if(indexForAddPointsSteps < messagesForAddPoints.Count)
-            {
-                indexForAddPointsSteps ++;
-            }
-            else if(indexForAddPointsSteps >= messagesForAddPoints.Count)
-            {
-                indexForAddPointsSteps = 0;
-                client.ResponceToClient("AddNumbers, 8");
-            }
+
         }
     }
-    public void selectClass()
+    public void executeSteps(int stepButton)
     {
-
+        switch(stepButton){
+            
+            case 0:
+                HouseToAddPointsTo = ", ClassA";
+                break;
+            case 1:
+                client.ResponceToClient("AddNumbers, " + int.Parse(inputField.text) + HouseToAddPointsTo);
+                break;
+        }
+        /*
+        if(indexForAddPointsSteps < messagesForAddPoints.Count)
+        {
+            indexForAddPointsSteps ++;
+        }
+        else if(indexForAddPointsSteps >= messagesForAddPoints.Count)
+        {
+            indexForAddPointsSteps = 0;
+            client.ResponceToClient("AddNumbers, 8");
+        }
+        */
+    }
+    public void selectClass(string House)
+    {
+        HouseToAddPointsTo = House;
     }
     public void selectAmountToAdd()
     {
