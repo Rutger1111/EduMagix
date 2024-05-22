@@ -72,6 +72,8 @@ public class Serverhandler : MonoBehaviour, IWorkers
             case "AddNumbers":
                 baseCommandClasses.Add(baseCommands[int.Parse(actionString[2])]);
                 strings.Add(actionString[1]);
+                House.Add(actionString[2]);
+                Debug.Log(House[House.Count - 1]);
                 server.ResponceToClient("respondNumberToAdd");
                 break;
         }            

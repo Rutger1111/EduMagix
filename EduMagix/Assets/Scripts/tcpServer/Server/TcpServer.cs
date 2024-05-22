@@ -36,7 +36,7 @@ public class TcpServer : MonoBehaviour, IDisposable
     {
         string ip = new WebClient().DownloadString("http://icanhazip.com/");
         Debug.Log(ip);
-        IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+        IPAddress localAddr = IPAddress.Parse("192.168.68.128");
         server = new TcpListener(localAddr, 992);
         server.Start();
 

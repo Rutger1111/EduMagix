@@ -22,15 +22,15 @@ public class AddCommand : BaseCommandClass
         houseSystem = HouseSystem.Create();
     }
     public void updateBalk(int amount){
-        if(houseSystem.HousePoints.ContainsKey("ClassA") == true){
-            houseSystem.HousePoints["ClassA"] = houseSystem.HousePoints["ClassA"] + amount;
-            slider.value = houseSystem.HousePoints["ClassA"];
+        if(houseSystem.HousePoints.ContainsKey(House) == true){
+            houseSystem.HousePoints[House] = houseSystem.HousePoints[House] + amount;
+            slider.value = houseSystem.HousePoints[House];
         }
         else{
-            houseSystem.HousePoints.Add("ClassA", amount);
-            slider.value = houseSystem.HousePoints["ClassA"];
+            houseSystem.HousePoints.Add(House, amount);
+            slider.value = houseSystem.HousePoints[House];
         }
-        Debug.Log("housepoints" + houseSystem.HousePoints["ClassA"]);
+        Debug.Log("housepoints" + houseSystem.HousePoints[House]);
     }
     // Update is called once per frame
     void Update()

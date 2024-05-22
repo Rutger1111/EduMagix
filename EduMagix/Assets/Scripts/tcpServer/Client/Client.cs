@@ -32,7 +32,7 @@ public class Client : MonoBehaviour
     {
         try
         {
-            client = new TcpClient(serverIP, serverPort);
+            client = new TcpClient("192.168.68.128", serverPort);
             stream = client.GetStream();
             Debug.Log("Connected to server.");
 
