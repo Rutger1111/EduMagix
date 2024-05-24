@@ -11,7 +11,7 @@ public class Client : MonoBehaviour
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
     public int serverPort = 992;             // Set this to your server's port.
     private string messageToSend = "Hello Server!"; // The message to send.
-
+    public SetUpData setUpData;
     private TcpClient client;
     private NetworkStream stream;
     private Thread clientReceiveThread;
@@ -32,7 +32,7 @@ public class Client : MonoBehaviour
     {
         try
         {
-            client = new TcpClient("192.168.68.128", serverPort);
+            client = new TcpClient(setUpData.SavedDatas[0].IP, serverPort);
             stream = client.GetStream();
             Debug.Log("Connected to server.");
 

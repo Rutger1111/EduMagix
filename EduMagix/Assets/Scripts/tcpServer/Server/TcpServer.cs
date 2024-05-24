@@ -17,7 +17,7 @@ public class TcpServer : MonoBehaviour, IDisposable
     public List<bool> ClientIsAnsweringNumber;
     public List<bool> ClientIsAnsweringString;
     public Serverhandler serverhandler;
-
+    public SetUpData setUpData;
     private void Start()
     {
         thread = new Thread(new ThreadStart(SetupServer));
@@ -36,7 +36,10 @@ public class TcpServer : MonoBehaviour, IDisposable
     {
         string ip = new WebClient().DownloadString("http://icanhazip.com/");
         Debug.Log(ip);
-        IPAddress localAddr = IPAddress.Parse("192.168.68.128");
+        FileHandler fileHandler = FileHandler.GetFileHandler();
+        string ipTest = setUpData.SavedDatas[0].IP;
+        Debug.Log(ipTest);
+        IPAddress localAddr = IPAddress.Parse(ipTest);
         server = new TcpListener(localAddr, 992);
         server.Start();
 
