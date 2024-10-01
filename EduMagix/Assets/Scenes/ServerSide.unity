@@ -820,6 +820,7 @@ MonoBehaviour:
   House: 
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 721404995}
+  pointsToAdd: 0
 --- !u!114 &721404995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,6 +1126,7 @@ MonoBehaviour:
   House: 
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1001912898}
+  pointsToAdd: 0
 --- !u!114 &1001912898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,6 +1246,7 @@ MonoBehaviour:
   House: 
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1022185676}
+  pointsToAdd: 0
 --- !u!114 &1022185676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,6 +1977,7 @@ MonoBehaviour:
   House: 
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1371719032}
+  pointsToAdd: 0
 --- !u!114 &1371719031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2093,6 +2097,7 @@ MonoBehaviour:
   House: 
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1512140848}
+  pointsToAdd: 0
 --- !u!114 &1512140847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2561,6 +2566,7 @@ MonoBehaviour:
   House: 
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1879463256}
+  pointsToAdd: 0
 --- !u!114 &1879463256
 MonoBehaviour:
   m_ObjectHideFlags: 0

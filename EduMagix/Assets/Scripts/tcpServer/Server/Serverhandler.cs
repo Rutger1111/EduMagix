@@ -70,6 +70,7 @@ public class Serverhandler : MonoBehaviour, IWorkers
                 server.ResponceToClient("numberSelectTrue");
                 break;
             case "AddNumbers":
+                Debug.Log("komthierrrrrrr");
                 baseCommandClasses.Add(baseCommands[int.Parse(actionString[2])]);
                 strings.Add(actionString[1]);
                 House.Add(actionString[2]);

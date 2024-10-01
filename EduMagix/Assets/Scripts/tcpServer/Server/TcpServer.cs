@@ -6,6 +6,8 @@ using System.Threading;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Net;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class TcpServer : MonoBehaviour, IDisposable
 {
@@ -34,12 +36,17 @@ public class TcpServer : MonoBehaviour, IDisposable
 
     private void SetupServer()
     {
-        string ip = new WebClient().DownloadString("http://icanhazip.com/");
-        Debug.Log(ip);
+//        string ip = new WebClient().DownloadString("http://icanhazip.com/");
+        string strHostName = "";
+        strHostName = System.Net.Dns.GetHostName();
+        var ipEntry =Dns.GetHostEntry(strHostName);
+        var addr = ipEntry.AddressList;
+        
         FileHandler fileHandler = FileHandler.GetFileHandler();
         string ipTest = setUpData.SavedDatas[0].IP;
-        Debug.Log(ipTest);
-        IPAddress localAddr = IPAddress.Parse(ipTest);
+        //Debug.Log(ipTest);
+        IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
+        Debug.Log(IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
         server = new TcpListener(localAddr, 992);
         server.Start();
 

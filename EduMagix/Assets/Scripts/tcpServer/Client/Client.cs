@@ -32,6 +32,16 @@ public class Client : MonoBehaviour
     {
         try
         {
+            print(setUpData.SavedDatas[0].IP);
+            if (setUpData.SavedDatas[0].IP == "")
+            {
+                string strHostName = "";
+                strHostName = System.Net.Dns.GetHostName();
+                var ipEntry = Dns.GetHostEntry(strHostName);
+                var addr = ipEntry.AddressList;
+
+            }
+
             client = new TcpClient(setUpData.SavedDatas[0].IP, serverPort);
             stream = client.GetStream();
             Debug.Log("Connected to server.");

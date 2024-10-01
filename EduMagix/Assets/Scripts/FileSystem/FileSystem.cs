@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Security.Cryptography;
+using Unity.VisualScripting.FullSerializer;
 
 public class FileSystem
 {
     private FileSystem() { }
     private static FileSystem fileSystem;
-    private string DirectoryPath;
+    public string DirectoryPath;
     private SaveData saveData;
     public static FileSystem GetFileSystem()
     {

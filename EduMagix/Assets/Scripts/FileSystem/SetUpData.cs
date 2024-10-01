@@ -10,6 +10,7 @@ public class SetUpData : MonoBehaviour
     void Start()
     {
         SavedDatas = FileHandler.GetFileHandler().SavedDatas;
+        print(FileSystem.GetFileSystem().DirectoryPath);
     }
 
     // Update is called once per frame
