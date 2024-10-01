@@ -47,7 +47,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         //Debug.Log(ipTest);
         IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
         Debug.Log(IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
-        server = new TcpListener(localAddr, 992);
+        server = new TcpListener(localAddr, 33434);
         server.Start();
 
         byte[] buffer = new byte[1024];

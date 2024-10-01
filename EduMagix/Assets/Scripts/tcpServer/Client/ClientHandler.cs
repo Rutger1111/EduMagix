@@ -32,7 +32,6 @@ public class ClientHandler : MonoBehaviour, IWorkers
         switch(stepButton){
             
             case 0:
-                HouseToAddPointsTo = ", ClassA";
                 break;
             case 1:
                 client.ResponceToClient("AddNumbers, " + int.Parse(inputField.text) + HouseToAddPointsTo);

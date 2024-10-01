@@ -8,6 +8,8 @@ public class AddCommand : BaseCommandClass
     public Serverhandler serverhandler;
     HouseSystem houseSystem;
     public Slider slider;
+    public bool added = true;
+    public bool adding;
     [SerializeField]private int pointsToAdd;
     private bool canCall;
     public override void Invoke(string Input)
@@ -38,17 +40,29 @@ public class AddCommand : BaseCommandClass
     // Update is called once per frame
     void Update()
     {
-        if (pointsToAdd > 0)
+        if (added == false && pointsToAdd > 0)
         {
+            print(pointsToAdd);
+            added = true;
+            adding =true;
             StartCoroutine(Add());
+
         }
     }
     public IEnumerator<WaitForSeconds> Add()
     {
         canCall = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         slider.value++;
         pointsToAdd--;
+        if(pointsToAdd == 0){
+            adding = false;
+            added = false;
+        }
         canCall = true;
+        if(adding == true){
+            StartCoroutine(Add()); 
+        }
+
     }
 }

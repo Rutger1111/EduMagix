@@ -71,6 +71,7 @@ public class Serverhandler : MonoBehaviour, IWorkers
                 break;
             case "AddNumbers":
                 Debug.Log("komthierrrrrrr");
+                Debug.Log(actionString[0]);
                 baseCommandClasses.Add(baseCommands[int.Parse(actionString[2])]);
                 strings.Add(actionString[1]);
                 House.Add(actionString[2]);
