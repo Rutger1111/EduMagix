@@ -29,7 +29,7 @@ public class AddCommand : BaseCommandClass
     public void updateBalk(int amount){
         if(houseSystem.HousePoints.ContainsKey(House) == true){
             houseSystem.HousePoints[House] = houseSystem.HousePoints[House] + amount;
-            pointsToAdd += houseSystem.HousePoints[House];
+            pointsToAdd += amount;
         }
         else{
             houseSystem.HousePoints.Add(House, amount);

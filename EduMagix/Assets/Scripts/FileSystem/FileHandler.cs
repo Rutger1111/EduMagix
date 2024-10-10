@@ -5,7 +5,7 @@ using UnityEngine;
 public class FileHandler
 {
     private static FileHandler fileHandler;
-    private List<string> Houses = new List<string>();
+    //private List<string> Houses = new List<string>();
     public List<SaveData> SavedDatas = new List<SaveData>();
     private FileHandler() { }    
 

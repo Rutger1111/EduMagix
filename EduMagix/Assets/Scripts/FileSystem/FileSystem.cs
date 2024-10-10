@@ -22,10 +22,7 @@ public class FileSystem
     }
 
         // Start is called before the first frame update
-    void Start()
-    {
 
-    }
     public void Write(string HouseToSave, int AmountToSave, string fileName)
     {
         string directoryPath = DirectoryPath + fileName;
