@@ -53,6 +53,7 @@ public class ClientHandler : MonoBehaviour, IWorkers
     {
         HouseToAddPointsTo = House;
     }
+    /*
     public void selectAmountToAdd()
     {
 
@@ -60,7 +61,7 @@ public class ClientHandler : MonoBehaviour, IWorkers
     public void setupAtClient()
     {
 
-    }
+    }*/
     public void responceToServerMessage(string message)
     {
         

@@ -50,7 +50,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         server = new TcpListener(localAddr, 33434);
         server.Start();
 
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[10024];
         string data = null;
         try
         {
