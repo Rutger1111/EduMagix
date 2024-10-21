@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class BaseCommandClass : MonoBehaviour
 {
-    [HideInInspector] public string House;
+    public string House;
     public abstract void Invoke(string Input);
 }

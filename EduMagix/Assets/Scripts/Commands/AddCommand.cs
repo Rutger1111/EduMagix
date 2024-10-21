@@ -25,6 +25,7 @@ public class AddCommand : BaseCommandClass
         slider = gameObject.GetComponent<Slider>();
         HouseSystem.Create();
         houseSystem = HouseSystem.Create();
+        houseSystem.AddHouse(this);
     }
     public void updateBalk(int amount){
         if(houseSystem.HousePoints.ContainsKey(House) == true){
@@ -40,14 +41,18 @@ public class AddCommand : BaseCommandClass
     // Update is called once per frame
     void Update()
     {
+        slider.value = houseSystem.HousePoints[House];
         if (added == false && pointsToAdd > 0)
         {
             print(pointsToAdd);
             added = true;
             adding =true;
             StartCoroutine(Add());
+        }
+        for (int i = houseSystem.HousePoints.Count -1;i >= 1; i--){
 
         }
+
     }
     public IEnumerator<WaitForSeconds> Add()
     {
