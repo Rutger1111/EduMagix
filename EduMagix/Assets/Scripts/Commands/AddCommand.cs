@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,7 +26,9 @@ public class AddCommand : BaseCommandClass
         slider = gameObject.GetComponent<Slider>();
         HouseSystem.Create();
         houseSystem = HouseSystem.Create();
+        print(houseSystem.Houses);
         houseSystem.AddHouse(this);
+        print(houseSystem.Houses);
     }
     public void updateBalk(int amount){
         if(houseSystem.HousePoints.ContainsKey(House) == true){
@@ -41,18 +44,29 @@ public class AddCommand : BaseCommandClass
     // Update is called once per frame
     void Update()
     {
-        slider.value = houseSystem.HousePoints[House];
+        //slider.value = houseSystem.HousePoints[House];
         if (added == false && pointsToAdd > 0)
         {
             print(pointsToAdd);
             added = true;
             adding =true;
-            StartCoroutine(Add());
+            //StartCoroutine(Add());
         }
-        for (int i = houseSystem.HousePoints.Count -1;i >= 1; i--){
-
+        float points = 0;
+        for (int i = houseSystem.Houses.Count -1;i >= 0; i--){
+            print("hoi" + houseSystem.Houses.Count);
+            if (houseSystem.Houses[i] != this){
+                points += houseSystem.HousePoints[houseSystem.Houses[i].House];
+            }
+            
         }
-
+        print("points" + points);
+        if (points > 0){
+            print("Calculate points"+(100 / (points + houseSystem.HousePoints[House])) * houseSystem.HousePoints[House]);
+            
+        }
+        print(points);
+        slider.value = points;
     }
     public IEnumerator<WaitForSeconds> Add()
     {

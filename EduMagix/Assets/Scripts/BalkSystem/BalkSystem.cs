@@ -8,7 +8,7 @@ public class HouseSystem
     public static HouseSystem balkSystem;
     private HouseSystem(){}
     public Dictionary<string, int> HousePoints = new Dictionary<string, int>();
-    public List<AddCommand> Houses;
+    public List<AddCommand> Houses = new List<AddCommand>();
     public static HouseSystem Create(){
         if(HouseSystem.balkSystem == null){
             HouseSystem.balkSystem = new HouseSystem();
@@ -26,7 +26,7 @@ public class HouseSystem
     {
         
     }
-
+    
     // Update is called once per frame
     void Update()
     {
