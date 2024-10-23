@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AddCommand : BaseCommandClass
 {
+    public float points = 0;
     public Serverhandler serverhandler;
     HouseSystem houseSystem;
     public Slider slider;
@@ -44,6 +45,7 @@ public class AddCommand : BaseCommandClass
     // Update is called once per frame
     void Update()
     {
+        points = 0;
         //slider.value = houseSystem.HousePoints[House];
         if (added == false && pointsToAdd > 0)
         {
@@ -52,21 +54,26 @@ public class AddCommand : BaseCommandClass
             adding =true;
             //StartCoroutine(Add());
         }
-        float points = 0;
         for (int i = houseSystem.Houses.Count -1;i >= 0; i--){
-            print("hoi" + houseSystem.Houses.Count);
-            if (houseSystem.Houses[i] != this){
+            //print("hoi" + houseSystem.Houses.Count);
+            if (houseSystem.Houses[i].House != House){
+                print (houseSystem.Houses[i].House);
                 points += houseSystem.HousePoints[houseSystem.Houses[i].House];
             }
             
         }
-        print("points" + points);
+        //print("points" + points);
         if (points > 0){
-            print("Calculate points"+(100 / (points + houseSystem.HousePoints[House])) * houseSystem.HousePoints[House]);
+            print("points" + points);
+            slider.value = (100 / (points +  houseSystem.HousePoints[House])) * houseSystem.HousePoints[House];
             
         }
-        print(points);
-        slider.value = points;
+        else if(points == 0 && houseSystem.HousePoints[House] > 0){
+            slider.value = 100;
+        }
+
+        //print(points);
+
     }
     public IEnumerator<WaitForSeconds> Add()
     {
