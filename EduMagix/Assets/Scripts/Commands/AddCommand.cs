@@ -57,7 +57,7 @@ public class AddCommand : BaseCommandClass
         for (int i = houseSystem.Houses.Count -1;i >= 0; i--){
             //print("hoi" + houseSystem.Houses.Count);
             if (houseSystem.Houses[i].House != House){
-                print (houseSystem.Houses[i].House);
+                //print (houseSystem.Houses[i].House);
                 points += houseSystem.HousePoints[houseSystem.Houses[i].House];
             }
             

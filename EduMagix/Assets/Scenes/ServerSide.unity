@@ -818,6 +818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   House: Arcane
+  points: 0
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1022185676}
   added: 0
@@ -1256,6 +1257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   House: Slither
+  points: 0
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1371719032}
   added: 0
@@ -1689,6 +1691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   House: Dear
+  points: 0
   serverhandler: {fileID: 1254035908}
   slider: {fileID: 1879463256}
   added: 0
@@ -1791,6 +1794,7 @@ GameObject:
   - component: {fileID: 1949341636}
   - component: {fileID: 1949341635}
   - component: {fileID: 1949341634}
+  - component: {fileID: 1949341637}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1872,6 +1876,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949341637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949341633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1dfa2869a7eead49afe3155591ae785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1963865761
 GameObject:
   m_ObjectHideFlags: 0
