@@ -14,7 +14,7 @@ public class AddCommand : BaseCommandClass
     public bool adding;
     [SerializeField]private int pointsToAdd;
     private bool canCall;
-    public override void Invoke(string Input)
+    public override void Invoke(string Input, string clas = "a")
     {
         Debug.Log("houseeeee" + int.Parse(Input));
         Debug.Log("comesHere");

@@ -1,7 +1,6 @@
 using System.Data;
 using System.Xml.Linq;
 using Mono.Data.Sqlite;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class Database : MonoBehaviour
@@ -11,54 +10,66 @@ public class Database : MonoBehaviour
     void Start()
     {
         CreateDB();
-        AddUser("a", 1);
+        AddClass("a", 1);
 
-        ReadUser("a");
+        ReadClass("a");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void CreateDB(){
-        using (var connection = new SqliteConnection(DBName)){
-            connection.Open();
-            print("hoi");
-            using (var command = connection.CreateCommand()){
-                command.CommandText = "CREATE TABLE IF NOT EXISTS classes (class VARCHAR(20) NOT NULL PRIMARY KEY, points INT);";
-                command.ExecuteNonQuery();
-            }
-            connection.Close();
-        }
-    }
-    public void AddUser(string Username, int Role){
-        using (var connection = new SqliteConnection(DBName)){
-            connection.Open();
-            using (var command = connection.CreateCommand()){
-                
-                command.CommandText = "INSERT OR REPLACE INTO classes (class, points) VALUES ('"+ Username + "', '" + Role + "');";
-                command.ExecuteNonQuery();
-                print("yep");
-                
-            }
-            connection.Close();
-        }
-    }
-    public void ReadUser(string name){
-        using (var connection = new SqliteConnection(DBName)){
-            connection.Open();
-            using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT class, points FROM classes WHERE class = '" + name + "';";
-                using (IDataReader reader = command.ExecuteReader()){
-                    while (reader.Read()){
-                        Debug.Log("Name: " +  reader["class"] + "/n Role: " + reader["points"]);
-                    }
-                    reader.Close();
+        try{
+
+            using (var connection = new SqliteConnection(DBName)){
+                connection.Open();
+                using (var command = connection.CreateCommand()){
+                    command.CommandText = "CREATE TABLE IF NOT EXISTS classes (class VARCHAR(20) NOT NULL PRIMARY KEY, points INT);";
+                    command.ExecuteNonQuery();
                 }
-                
+                connection.Close();
+            }            
+        }
+        catch(System.Exception ex){
+            Debug.LogError("database error" + ex.Message);
+        }
+    }
+    public void AddClass(string className, int Points){
+        try{
+            using (var connection = new SqliteConnection(DBName)){
+                connection.Open();
+                using (var command = connection.CreateCommand()){
+                    
+                    command.CommandText = "INSERT OR REPLACE INTO classes (class, points) VALUES (@className, @Points);";
+                    command.Parameters.AddWithValue("@className", className);
+                    command.Parameters.AddWithValue("@Points", Points);
+                    command.ExecuteNonQuery();
+                }
             }
-            connection.Close();
+        }
+        catch(System.Exception ex){
+            Debug.LogError("database error" + ex.Message);
+        }
+    }
+    public void ReadClass(string className){
+        try{
+            using (var connection = new SqliteConnection(DBName)){
+                connection.Open();
+                using (var command = connection.CreateCommand()){
+                    command.CommandText = "SELECT class, points FROM classes WHERE class = @className;";
+                    command.Parameters.AddWithValue("@className", className);
+                    using (IDataReader reader = command.ExecuteReader()){
+                        while (reader.Read()){
+                            Debug.Log("Name: " +  reader["class"] + "\n Points:" + reader["points"]);
+                        }
+                    }
+                    
+                }
+            }
+        }
+        catch(System.Exception ex){
+            Debug.LogError("database error" + ex.Message);
         }
     }
 }

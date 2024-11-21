@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class BaseCommandClass : MonoBehaviour
 {
+
     public string House;
-    public abstract void Invoke(string Input);
+    public abstract void Invoke(string Input, string clas = "a");
 }

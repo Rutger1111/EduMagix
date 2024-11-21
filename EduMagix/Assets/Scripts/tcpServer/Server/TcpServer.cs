@@ -6,7 +6,6 @@ using System.Threading;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
-using System.Net;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public class TcpServer : MonoBehaviour, IDisposable

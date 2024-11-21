@@ -16,8 +16,9 @@ public class PopUpSYstem : MonoBehaviour
             PopupWindows[I-1].SetActive(false);
         }
         
-
+    
         PopupWindows[I].SetActive(true);
+        
         I ++;  
     }
 }
