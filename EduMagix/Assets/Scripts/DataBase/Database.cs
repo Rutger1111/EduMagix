@@ -12,7 +12,7 @@ public class Database : MonoBehaviour
         CreateDB();
         AddClass("a", 1);
 
-        ReadClass("a");
+        ReadAllClass("a");
     }
 
     // Update is called once per frame
@@ -58,6 +58,26 @@ public class Database : MonoBehaviour
                 connection.Open();
                 using (var command = connection.CreateCommand()){
                     command.CommandText = "SELECT class, points FROM classes WHERE class = @className;";
+                    command.Parameters.AddWithValue("@className", className);
+                    using (IDataReader reader = command.ExecuteReader()){
+                        while (reader.Read()){
+                            Debug.Log("Name: " +  reader["class"] + "\n Points:" + reader["points"]);
+                        }
+                    }
+                    
+                }
+            }
+        }
+        catch(System.Exception ex){
+            Debug.LogError("database error" + ex.Message);
+        }
+    }
+    public void ReadAllClass(string className){
+        try{
+            using (var connection = new SqliteConnection(DBName)){
+                connection.Open();
+                using (var command = connection.CreateCommand()){
+                    command.CommandText = "SELECT class, points FROM classes";
                     command.Parameters.AddWithValue("@className", className);
                     using (IDataReader reader = command.ExecuteReader()){
                         while (reader.Read()){
