@@ -16,6 +16,8 @@ public class ClientHandler : MonoBehaviour, IWorkers
     public SplitStrings splitStrings = new SplitStrings();
     public string HouseToAddPointsTo;
     public TMP_InputField inputField;
+    public List<Data> datas;
+    public byte[] testTexture;
     void Start()
     {
         splitStrings.splitNumbers(this,"122 124, americaayaaa");
@@ -34,6 +36,7 @@ public class ClientHandler : MonoBehaviour, IWorkers
             case 0:
                 break;
             case 1:
+                sendPercentage();
                 client.ResponceToClient("AddNumbers, " + int.Parse(inputField.text) + HouseToAddPointsTo);
                 break;
         }
@@ -48,6 +51,10 @@ public class ClientHandler : MonoBehaviour, IWorkers
             client.ResponceToClient("AddNumbers, 8");
         }
         */
+    }
+    public void sendPercentage(){
+        datas[0] = new Data(testTexture, "hoi", 10);
+        client.ResponceToClient("AddNumbers, " + 100 / datas[0].aantalLeerlingen * int.Parse(inputField.text) + HouseToAddPointsTo);
     }
     public void selectClass(string House)
     {
