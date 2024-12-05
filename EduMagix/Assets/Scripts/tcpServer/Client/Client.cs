@@ -73,9 +73,14 @@ public class Client : MonoBehaviour
                         var incomingData = new byte[length];
                         Array.Copy(bytes, 0, incomingData, 0, length);
                         // Convert byte array to string message.
-                        string serverMessage = Encoding.UTF8.GetString(incomingData);
-                        clientHandler.responceToServerMessage(serverMessage);
-                        Debug.Log("Server message received: " + serverMessage);
+                        if (incomingData.Length < 50){
+                            string serverMessage = Encoding.UTF8.GetString(incomingData);
+                            clientHandler.responceToServerMessage(serverMessage);
+                            Debug.Log("Server message received: " + serverMessage);                            
+                        }
+                        else{
+                            Data data = new Decryptor().DeserializeDB(bytes);
+                        }
                     }
                 }
             }

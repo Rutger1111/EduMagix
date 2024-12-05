@@ -42,8 +42,9 @@ public class TcpServer : MonoBehaviour, IDisposable
         var addr = ipEntry.AddressList;
         
         FileHandler fileHandler = FileHandler.GetFileHandler();
+        
         string ipTest = setUpData.SavedDatas[0].IP;
-        //Debug.Log(ipTest);
+        Debug.Log(ipTest);
         IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
         Debug.Log(IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
         server = new TcpListener(localAddr, 33434);
@@ -117,7 +118,9 @@ public class TcpServer : MonoBehaviour, IDisposable
         stream.Write(msg, 0, msg.Length);
         Debug.Log("Sent: " + message);
     }
-
+    public void SendDataToClient(byte[] bytes){
+        stream.Write(bytes,0, bytes.Length);
+    }
     public void Dispose()
     {
         stream.Close();

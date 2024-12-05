@@ -5,11 +5,12 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using System;
+using JetBrains.Annotations;
 public class Serverhandler : MonoBehaviour, IWorkers
 {
     public List<BaseCommandClass> baseCommandClasses;
-    public List<String> strings;
-    public List<String> House;
+    public List<string> strings;
+    public List<string> House;
     public BaseCommandClass CommandSelectClass;
     public bool waitForAnswer = false;
     public TcpServer server;
@@ -17,7 +18,11 @@ public class Serverhandler : MonoBehaviour, IWorkers
     public SplitStrings splitStrings = new SplitStrings();
     public string[] actionString;
     public List<BaseCommandClass> baseCommands;
-
+    public string HouseToAddPointsTo;
+    public void selectClass(string House)
+    {
+        HouseToAddPointsTo = House;
+    }
     public void Callback(string[] words, int numbers)
     {
         actionString = new string[words.Length];
@@ -29,7 +34,6 @@ public class Serverhandler : MonoBehaviour, IWorkers
             }
             else
             {
-
                 actionString[i] = words[i];
             }
         }    
@@ -81,6 +85,14 @@ public class Serverhandler : MonoBehaviour, IWorkers
             case "Percentage":
             
                 break;
+            case "classData":
+
+                break;
         }            
+
+    }
+    public void SendClass(){
+        ListOfData listOfData = ListOfData.GetListOfData();
+        Data data = listOfData.GetData(HouseToAddPointsTo);
     }
 }

@@ -18,16 +18,33 @@ public class ClientHandler : MonoBehaviour, IWorkers
     public TMP_InputField inputField;
     public List<Data> datas;
     public byte[] testTexture;
+    public string[] actionString;
+    
+    public void Callback(string[] words, int numbers)
+    {
+        actionString = new string[words.Length];
+        for (int i = 0; i < words.Length; i++)
+        {
+            if (Regex.IsMatch(words[i], @"^\d+$") == true){
+                Debug.Log(int.Parse(words[i]));
+                actionString[i] = words[i];
+            }
+            else
+            {
+
+                actionString[i] = words[i];
+            }
+        }    
+    }
+
+
     void Start()
     {
         splitStrings.splitNumbers(this,"122 124, americaayaaa");
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
-        {
 
-        }
     }
     public void executeSteps(int stepButton)
     {
@@ -71,35 +88,20 @@ public class ClientHandler : MonoBehaviour, IWorkers
     }*/
     public void responceToServerMessage(string message)
     {
-        
-        switch(message)
+        switch(actionString[0])
         {
-            case "classSelectTrue":
-                ConfiguratingHouse = true;
-                indexForAddPointsSteps ++;
+            case "AddNumbers":
+                Debug.Log("komthierrrrrrr");
+                Debug.Log(actionString[2]);
+                //baseCommandClasses.Add(baseCommands[int.Parse(actionString[2])]);
+                //strings.Add(actionString[1]);
+                //House.Add(actionString[2]);
+                //Debug.Log(House[House.Count - 1]);
+                //server.ResponceToClient("respondNumberToAdd");
                 break;
-            case "numberSelectTrue" :
-                ConfiguratingNumber = true;
-                indexForAddPointsSteps ++;
+            case "Percentage":
+            
                 break;
-            case "respondNumberToAdd":
-                indexForAddPointsSteps ++;
-                break;
-            case "numbersAdded" :
-                ConfiguratingHouse = false;
-                ConfiguratingNumber = false;
-                indexForAddPointsSteps = 0;
-                break;
-
-        }
-    }
-    public void Callback(string[] words, int numbers)
-    {
-        for (int i = 0; i < words.Length; i++)
-        {
-            if (Regex.IsMatch(words[i], @"^\d+$") == true){
-                Debug.Log(int.Parse(words[i]));
-            }
         }
     }
 }

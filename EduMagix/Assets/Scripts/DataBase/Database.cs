@@ -11,14 +11,17 @@ public class Database : MonoBehaviour
     private string DBName = "URI=file:Data.db";
     public Data testData;
     public byte[] testTexture;
+    public Serverhandler serverhandler;
+    ListOfData listOfData;
     // Start is called before the first frame update
     void Start()
     {
+        listOfData = ListOfData.GetListOfData();
         testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "Test", 10);
         CreateDB();
         AddClass("a", testData);
 
-        ReadAllClass("a");
+        ReadAllClass();
     }
 
     // Update is called once per frame
@@ -41,6 +44,20 @@ public class Database : MonoBehaviour
             Debug.LogError("database error" + ex.Message);
         }
     }
+    public void AddPoints(string housseToAddPointsTo, int aanwezigen){
+        Data data = ReadClass(housseToAddPointsTo);
+        if (aanwezigen <= data.aantalLeerlingen){
+            data.currentAmountOfPoints += 100 / data.aantalLeerlingen * aanwezigen;
+        }
+        AddClass(data.houseName, data);
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (var stream = new System.IO.MemoryStream()){
+                formatter.Serialize(stream,data);
+            byte[] bytes = stream.ToArray();
+        }
+
+
+    }
     public void AddClass(string className, Data data){
         try{
             using (var connection = new SqliteConnection(DBName)){
@@ -56,7 +73,6 @@ public class Database : MonoBehaviour
                         command.Parameters.AddWithValue("@data", dataBytes);
                         command.ExecuteNonQuery();                        
                     }
-
                 }
             }
         }
@@ -64,7 +80,7 @@ public class Database : MonoBehaviour
             Debug.LogError("database error" + ex.Message);
         }
     }
-    public void ReadClass(string className){
+    public Data ReadClass(string className){
         try{
             using (var connection = new SqliteConnection(DBName)){
                 connection.Open();
@@ -74,17 +90,27 @@ public class Database : MonoBehaviour
                     using (IDataReader reader = command.ExecuteReader()){
                         while (reader.Read()){
                             Debug.Log("Name: " +  reader["class"] + "\n Data:" + reader["dataClass"]);
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            object obj = reader["dataClass"];
+                            byte[] bytes = (byte[])obj;
+                            using (var stream = new System.IO.MemoryStream(bytes)){
+                                Data data = (Data)formatter.Deserialize(stream);
+                                return data;
+                            }
                         }
+
                     }
                     
                 }
             }
+
         }
         catch(System.Exception ex){
-            Debug.LogError("database error" + ex.Message);
+            Debug.LogError("database error" + ex.Message);           
         }
+        return null;
     }
-    public void ReadAllClass(string className){
+    public void ReadAllClass(){
         try{
             using (var connection = new SqliteConnection(DBName)){
                 connection.Open();
@@ -99,8 +125,11 @@ public class Database : MonoBehaviour
                             byte[] bytes = (byte[])obj;
                             using (var stream = new System.IO.MemoryStream(bytes)){
                                 Data data = (Data)formatter.Deserialize(stream);
-                                Sprite test = data.convertToSprite();
-                                print("deserialized data" + data + test);                            
+                                //Sprite test = data.convertToSprite();
+                                print("deserialized data" + data);   
+ 
+                                listOfData.AddData(data); 
+                                print("added" + listOfData);   
                             }
 
                         }
