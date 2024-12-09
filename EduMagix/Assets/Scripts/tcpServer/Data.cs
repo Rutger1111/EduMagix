@@ -10,10 +10,11 @@ public class Data
     public byte[] houseImage;
     public string houseName;
     public float currentAmountOfPoints;
-    public Data(byte[] texture, string String, float Float){
+    public Data(byte[] texture, string String, float Float, int AantalLeerlingen){
         houseImage = texture;
         houseName = String;
         currentAmountOfPoints = Float;
+        aantalLeerlingen = AantalLeerlingen;
     }
     public Sprite convertToSprite(){
         Texture2D textures = new Texture2D(2,2);

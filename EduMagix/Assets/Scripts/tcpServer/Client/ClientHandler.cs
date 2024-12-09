@@ -70,7 +70,7 @@ public class ClientHandler : MonoBehaviour, IWorkers
         */
     }
     public void sendPercentage(){
-        datas[0] = new Data(testTexture, "hoi", 10);
+        datas[0] = new Data(testTexture, "hoi", 10, 20);
         client.ResponceToClient("AddNumbers, " + 100 / datas[0].aantalLeerlingen * int.Parse(inputField.text) + HouseToAddPointsTo);
     }
     public void selectClass(string House)
@@ -103,5 +103,9 @@ public class ClientHandler : MonoBehaviour, IWorkers
             
                 break;
         }
+    }
+    public void regristerNewKlas(Data data)
+    {
+        
     }
 }

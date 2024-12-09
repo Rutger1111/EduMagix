@@ -4,7 +4,9 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Linq;
 using Mono.Data.Sqlite;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Database : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class Database : MonoBehaviour
     void Start()
     {
         listOfData = ListOfData.GetListOfData();
-        testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "Test", 10);
+        testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "Test", 10, 20);
         CreateDB();
         AddClass("a", testData);
 
@@ -44,11 +46,15 @@ public class Database : MonoBehaviour
             Debug.LogError("database error" + ex.Message);
         }
     }
-    public void AddPoints(string housseToAddPointsTo, int aanwezigen){
-        Data data = ReadClass(housseToAddPointsTo);
+    public void AddPoints(TMPro.TMP_InputField aanwezigenText){
+        int aanwezigen = int.Parse(aanwezigenText.text);
+
+        Data data = ReadClass(serverhandler.HouseToAddPointsTo);
+        print("hoii" + data.aantalLeerlingen);
         if (aanwezigen <= data.aantalLeerlingen){
             data.currentAmountOfPoints += 100 / data.aantalLeerlingen * aanwezigen;
         }
+        print("hoi" + data.currentAmountOfPoints);
         AddClass(data.houseName, data);
         BinaryFormatter formatter = new BinaryFormatter();
         using (var stream = new System.IO.MemoryStream()){
