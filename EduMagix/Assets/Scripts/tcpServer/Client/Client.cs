@@ -6,7 +6,6 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
-
 public class Client : MonoBehaviour
 {
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
@@ -17,9 +16,10 @@ public class Client : MonoBehaviour
     private NetworkStream stream;
     private Thread clientReceiveThread;
     public ClientHandler clientHandler;
-
+    DebugTextCollector textCollector;
     void Start()
     {
+        textCollector = DebugTextCollector.GetTextCollector();
         //serverIP = new WebClient().DownloadString("http://icanhazip.com/");
         ConnectToServer();
     }
@@ -31,9 +31,10 @@ public class Client : MonoBehaviour
 
     void ConnectToServer()
     {
+        
         try
         {
-            print(setUpData.SavedDatas[0].IP);
+            //textCollector.AddDebugText((setUpData.SavedDatas[0].IP));
             if (setUpData.SavedDatas[0].IP == "")
             {
                 string strHostName = "";
@@ -72,22 +73,23 @@ public class Client : MonoBehaviour
                 {
                     int length;
                     print("ontvangen");
-                    SendMessageToServer("komt binnen");
+                    textCollector.AddDebugText("komt binnen");
                     // Read incoming stream into byte array.
                     while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         var incomingData = new byte[length];
                         Array.Copy(bytes, 0, incomingData, 0, length);
-                        print (length);
+                        textCollector.AddDebugText("" + length);
                         // Convert byte array to string message.
                         if (incomingData.Length < 50){
                             string serverMessage = Encoding.UTF8.GetString(incomingData);
                             clientHandler.responceToServerMessage(serverMessage);
-                            Debug.Log("Server message received: " + serverMessage);                            
+                            textCollector.AddDebugText("Server message received: " + serverMessage);                            
                         }
                         else{
-                            print("dataclasss");
+                            textCollector.AddDebugText("dataclasss");
                             Data data = new Decryptor().DeserializeDB(bytes);
+                            textCollector.AddDebugText("klaspunten" + data.currentAmountOfPoints);
                             clientHandler.regristerNewKlas(data);
                         }
                     }
