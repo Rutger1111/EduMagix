@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading;
 using System.Collections.Generic;
 using System.Net;
+using System.IO;
 
 public class Client : MonoBehaviour
 {
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
-    public int serverPort = 5001;             // Set this to your server's port.
+    public int serverPort = 33435;             // Set this to your server's port.
     private string messageToSend = "Hello Server!"; // The message to send.
     public SetUpData setUpData;
     private TcpClient client;
@@ -58,20 +59,26 @@ public class Client : MonoBehaviour
 
     private void ListenForData()
     {
+
+
         try
         {
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[1024000];
             while (true)
             {
+
                 // Check if there's any data available on the network stream
                 if (stream.DataAvailable)
                 {
                     int length;
+                    print("ontvangen");
+                    SendMessageToServer("komt binnen");
                     // Read incoming stream into byte array.
                     while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         var incomingData = new byte[length];
                         Array.Copy(bytes, 0, incomingData, 0, length);
+                        print (length);
                         // Convert byte array to string message.
                         if (incomingData.Length < 50){
                             string serverMessage = Encoding.UTF8.GetString(incomingData);
@@ -79,7 +86,9 @@ public class Client : MonoBehaviour
                             Debug.Log("Server message received: " + serverMessage);                            
                         }
                         else{
+                            print("dataclasss");
                             Data data = new Decryptor().DeserializeDB(bytes);
+                            clientHandler.regristerNewKlas(data);
                         }
                     }
                 }

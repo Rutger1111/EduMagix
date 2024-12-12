@@ -18,10 +18,20 @@ public class ListOfData
 
     Dictionary<string,Data> datas;
     public void AddData(Data data){
-        datas.Add(data.houseName, data);
+
+        data.houseName = "a";
+        if(listOfData.datas.ContainsKey("a") == true){
+            listOfData.datas["a"] = data;
+        }
+        else if(listOfData.datas.ContainsKey("a") == false){
+            ListOfData.listOfData.datas.Add(data.houseName, data); 
+        }
+
+        Debug.Log("komt hier    " + listOfData.datas["a"] + data.houseName); 
     }
     public Data GetData(string houseName){
-        return datas[houseName];
+        return ListOfData.listOfData.datas[houseName];
+
     }
 
 }

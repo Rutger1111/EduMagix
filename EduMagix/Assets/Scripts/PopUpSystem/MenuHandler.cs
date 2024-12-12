@@ -16,5 +16,4 @@ public class MenuHandler : MonoBehaviour
                 break;
         }
     }
-
 }

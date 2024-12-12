@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using System;
 using JetBrains.Annotations;
+using System.Runtime.Serialization.Formatters.Binary;
 public class Serverhandler : MonoBehaviour, IWorkers
 {
     public List<BaseCommandClass> baseCommandClasses;
@@ -19,6 +20,7 @@ public class Serverhandler : MonoBehaviour, IWorkers
     public string[] actionString;
     public List<BaseCommandClass> baseCommands;
     public string HouseToAddPointsTo;
+
     public void selectClass(string House)
     {
         HouseToAddPointsTo = House;
@@ -94,5 +96,12 @@ public class Serverhandler : MonoBehaviour, IWorkers
     public void SendClass(){
         ListOfData listOfData = ListOfData.GetListOfData();
         Data data = listOfData.GetData(HouseToAddPointsTo);
+        using (var stream = new System.IO.MemoryStream()){
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, data);
+            byte[] bytes = stream.ToArray();
+            server.SendDataToClient(bytes);
+        }
+
     }
 }

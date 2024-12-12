@@ -19,7 +19,9 @@ public class ClientHandler : MonoBehaviour, IWorkers
     public List<Data> datas;
     public byte[] testTexture;
     public string[] actionString;
-    
+    public Dictionary<string, GameObject> sliders = new Dictionary<string, GameObject>();
+
+    public GameObject prefabSlider;
     public void Callback(string[] words, int numbers)
     {
         actionString = new string[words.Length];
@@ -106,6 +108,15 @@ public class ClientHandler : MonoBehaviour, IWorkers
     }
     public void regristerNewKlas(Data data)
     {
+        ListOfData listOfData = ListOfData.GetListOfData();
+        listOfData.AddData(data);
+        if(!sliders.ContainsKey(data.houseName)){
+            sliders[data.houseName] = GameObject.Instantiate(prefabSlider, GameObject.Find("HouseCounters").transform);
+            sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
+        }
+        else{
+            sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
+        }
         
     }
 }

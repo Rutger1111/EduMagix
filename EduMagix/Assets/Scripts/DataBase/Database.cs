@@ -19,10 +19,8 @@ public class Database : MonoBehaviour
     void Start()
     {
         listOfData = ListOfData.GetListOfData();
-        testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "Test", 10, 20);
+        testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "a", 10, 20);
         CreateDB();
-        AddClass("a", testData);
-
         ReadAllClass();
     }
 
@@ -50,12 +48,12 @@ public class Database : MonoBehaviour
         int aanwezigen = int.Parse(aanwezigenText.text);
 
         Data data = ReadClass(serverhandler.HouseToAddPointsTo);
-        print("hoii" + data.aantalLeerlingen);
+        print("hoii" + data.currentAmountOfPoints + data.houseName);
         if (aanwezigen <= data.aantalLeerlingen){
             data.currentAmountOfPoints += 100 / data.aantalLeerlingen * aanwezigen;
         }
-        print("hoi" + data.currentAmountOfPoints);
-        AddClass(data.houseName, data);
+        print("hoi" + data.currentAmountOfPoints + data.houseName);
+        AddClass(serverhandler.HouseToAddPointsTo, data);
         BinaryFormatter formatter = new BinaryFormatter();
         using (var stream = new System.IO.MemoryStream()){
                 formatter.Serialize(stream,data);
@@ -72,6 +70,7 @@ public class Database : MonoBehaviour
                 using (var command = connection.CreateCommand()){
                     var formatter = new BinaryFormatter();
                     using (var stream = new System.IO.MemoryStream()){
+
                         formatter.Serialize(stream, data);
                         byte[] dataBytes = stream.ToArray();
                         command.CommandText = "INSERT OR REPLACE INTO classes (class, dataClass) VALUES (@className, @data);";
@@ -83,7 +82,7 @@ public class Database : MonoBehaviour
             }
         }
         catch(System.Exception ex){
-            Debug.LogError("database error" + ex.Message);
+            Debug.LogError("database error Addclass" + ex.Message);
         }
     }
     public Data ReadClass(string className){
@@ -112,7 +111,7 @@ public class Database : MonoBehaviour
 
         }
         catch(System.Exception ex){
-            Debug.LogError("database error" + ex.Message);           
+            Debug.LogError("database error Readclass" + ex.Message);           
         }
         return null;
     }
@@ -132,10 +131,9 @@ public class Database : MonoBehaviour
                             using (var stream = new System.IO.MemoryStream(bytes)){
                                 Data data = (Data)formatter.Deserialize(stream);
                                 //Sprite test = data.convertToSprite();
-                                print("deserialized data" + data);   
- 
+                                print("deserialized data" + data + data.houseName);   
                                 listOfData.AddData(data); 
-                                print("added" + listOfData);   
+                                print("added" + listOfData.GetData("a").houseName);   
                             }
 
                         }
@@ -145,7 +143,7 @@ public class Database : MonoBehaviour
             }
         }
         catch(System.Exception ex){
-            Debug.LogError("database error" + ex.Message);
+            Debug.LogError("database error ReadAllClasses" + ex.Message);
         }
     }
 

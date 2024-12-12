@@ -7,6 +7,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using static UnityEngine.EventSystems.EventTrigger;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class TcpServer : MonoBehaviour, IDisposable
 {
@@ -36,7 +39,7 @@ public class TcpServer : MonoBehaviour, IDisposable
     private void SetupServer()
     {
 //        string ip = new WebClient().DownloadString("http://icanhazip.com/");
-        string strHostName = "";
+        string strHostName = "Server";
         strHostName = System.Net.Dns.GetHostName();
         var ipEntry =Dns.GetHostEntry(strHostName);
         var addr = ipEntry.AddressList;
@@ -47,7 +50,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         Debug.Log(ipTest);
         IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
         Debug.Log(IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
-        server = new TcpListener(localAddr, 33435);
+        server = new TcpListener(localAddr, 33434);
         server.Start();
 
         byte[] buffer = new byte[10024];
@@ -57,15 +60,18 @@ public class TcpServer : MonoBehaviour, IDisposable
             while (true)
             {
                 Debug.Log("Waiting for connection...");
-                client = server.AcceptTcpClient();
+                if(client == null){
+                    client = server.AcceptTcpClient();
+                }
                 Debug.Log("Connected!");
                 data = null;
                 stream = client.GetStream();
-
                 int i;
-
-                while ((i = stream.Read(buffer, 0, buffer.Length)) != 0)
+                int read = 0;
+                while ((i = stream.Read(buffer, read, buffer.Length - read)) != 0)
                 {
+                    read += i;
+                    print(i);
                     data = Encoding.UTF8.GetString(buffer, 0, i);
                     Debug.Log("Received: " + data);
                     /*
@@ -91,7 +97,8 @@ public class TcpServer : MonoBehaviour, IDisposable
                     serverhandler.responceToServerMessage(data);
                     Debug.Log("Server response: " + data.ToString());
                 }
-                client.Close();
+                Debug.Log("GaatVoorbijWhileLoop");
+                //client.Close();
             }
         }
         catch (SocketException e)
@@ -109,7 +116,7 @@ public class TcpServer : MonoBehaviour, IDisposable
     }
     private void OnApplicationQuit()
     {
-
+        Dispose();
     }
 
     public void SendMessageToClient(string message)
@@ -119,8 +126,13 @@ public class TcpServer : MonoBehaviour, IDisposable
         Debug.Log("Sent: " + message);
     }
     public void SendDataToClient(byte[] bytes){
+        print("client: " + client);
+        print(stream);
         stream.Write(bytes,0, bytes.Length);
+        print("written stream" + bytes);
+
     }
+
     public void Dispose()
     {
         stream.Close();
