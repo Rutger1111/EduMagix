@@ -14,11 +14,11 @@ public class AddCommand : BaseCommandClass
     public bool adding;
     [SerializeField]private int pointsToAdd;
     private bool canCall;
-    public override void Invoke(string Input, string clas = "a")
+    public override void Invoke(Data data)
     {
-        Debug.Log("houseeeee" + int.Parse(Input));
-        Debug.Log("comesHere");
-        updateBalk(int.Parse(Input));
+        //Debug.Log("houseeeee" + int.Parse(Input));
+        //Debug.Log("comesHere");
+        //updateBalk(int.Parse(Input));
     }
 
     // Start is called before the first frame update
@@ -87,8 +87,12 @@ public class AddCommand : BaseCommandClass
         }
         canCall = true;
         if(adding == true){
-            StartCoroutine(Add()); 
+            StartCoroutine(Add());
         }
 
+    }
+    public override void Invoke(string Input)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -6,5 +6,7 @@ public abstract class BaseCommandClass : MonoBehaviour
 {
 
     public string House;
-    public abstract void Invoke(string Input, string clas = "a");
+    private byte[] bytes;
+    public abstract void Invoke(Data data);
+    public abstract void Invoke(string Input);
 }

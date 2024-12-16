@@ -15,6 +15,7 @@ public class Database : MonoBehaviour
     public byte[] testTexture;
     public Serverhandler serverhandler;
     ListOfData listOfData;
+    DebugTextCollector textCollector = DebugTextCollector.GetTextCollector();
     // Start is called before the first frame update
     void Start()
     {
@@ -46,13 +47,13 @@ public class Database : MonoBehaviour
     }
     public void AddPoints(TMPro.TMP_InputField aanwezigenText){
         int aanwezigen = int.Parse(aanwezigenText.text);
-
+        textCollector.AddDebugText("" + aanwezigen);
         Data data = ReadClass(serverhandler.HouseToAddPointsTo);
-        print("hoii" + data.currentAmountOfPoints + data.houseName);
+        textCollector.AddDebugText("hoii" + data.currentAmountOfPoints + data.houseName);
         if (aanwezigen <= data.aantalLeerlingen){
             data.currentAmountOfPoints += 100 / data.aantalLeerlingen * aanwezigen;
         }
-        print("hoi" + data.currentAmountOfPoints + data.houseName);
+        textCollector.AddDebugText("hoi" + data.currentAmountOfPoints + data.houseName);
         AddClass(serverhandler.HouseToAddPointsTo, data);
         BinaryFormatter formatter = new BinaryFormatter();
         using (var stream = new System.IO.MemoryStream()){

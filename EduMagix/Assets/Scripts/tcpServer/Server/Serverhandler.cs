@@ -94,12 +94,15 @@ public class Serverhandler : MonoBehaviour, IWorkers
 
     }
     public void SendClass(){
+        DebugTextCollector.GetTextCollector().AddDebugText("kwam hier");
         ListOfData listOfData = ListOfData.GetListOfData();
         Data data = listOfData.GetData(HouseToAddPointsTo);
         using (var stream = new System.IO.MemoryStream()){
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(stream, data);
             byte[] bytes = stream.ToArray();
+            DebugTextCollector.GetTextCollector().AddDebugText("sendData");
+
             server.SendDataToClient(bytes);
         }
 

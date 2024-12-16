@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 
 public class TcpServer : MonoBehaviour, IDisposable
 {
+
     TcpListener server = null;
     TcpClient client = null;
     NetworkStream stream = null;
@@ -22,10 +23,17 @@ public class TcpServer : MonoBehaviour, IDisposable
     public List<bool> ClientIsAnsweringString;
     public Serverhandler serverhandler;
     public SetUpData setUpData;
+    public DebugTextCollector textCollector;
+    public PortForwarder portForwarder;
     private void Start()
     {
+        textCollector = DebugTextCollector.GetTextCollector();
         thread = new Thread(new ThreadStart(SetupServer));
+        uPnPHelper.DebugMode = true;
+        uPnPHelper.LogErrors = true;
+        uPnPHelper.Start(uPnPHelper.Protocol.TCP, 33434, 0, "Unity uPnP Port Forward Test.");
         thread.Start();
+
     }
 
     private void Update()
@@ -47,58 +55,22 @@ public class TcpServer : MonoBehaviour, IDisposable
         FileHandler fileHandler = FileHandler.GetFileHandler();
         
         string ipTest = setUpData.SavedDatas[0].IP;
-        Debug.Log(ipTest);
+        textCollector.AddDebugText(ipTest);
         IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
-        Debug.Log(IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
+        textCollector.AddDebugText("used" +IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
         server = new TcpListener(localAddr, 33434);
         server.Start();
 
-        byte[] buffer = new byte[10024];
-        string data = null;
         try
         {
             while (true)
             {
-                Debug.Log("Waiting for connection...");
-                if(client == null){
-                    client = server.AcceptTcpClient();
+                if (client == null){
+                    GetClient();
                 }
-                Debug.Log("Connected!");
-                data = null;
-                stream = client.GetStream();
-                int i;
-                int read = 0;
-                while ((i = stream.Read(buffer, read, buffer.Length - read)) != 0)
-                {
-                    read += i;
-                    print(i);
-                    data = Encoding.UTF8.GetString(buffer, 0, i);
-                    Debug.Log("Received: " + data);
-                    /*
-                    for (int Clienti = 0; Clienti < Clients.Count; Clienti ++)
-                    {
-                        
-                        if (Clients[Clienti] == client)
-                        {
-                            if(ClientIsAnsweringNumber[Clienti] == true)
-                            {
-                                
-                                serverhandler.CommandAddPoints.amount = int.Parse(data);
-                                serverhandler.CommandAddPoints.Invoke();
-                                
-                            }
-                            else if (ClientIsAnsweringString[Clienti] == true)
-                            {
-
-                            }
-                        }
-                    }
-                    */
-                    serverhandler.responceToServerMessage(data);
-                    Debug.Log("Server response: " + data.ToString());
+                else if(client != null){
+                    ReadClientStream();
                 }
-                Debug.Log("GaatVoorbijWhileLoop");
-                //client.Close();
             }
         }
         catch (SocketException e)
@@ -109,6 +81,63 @@ public class TcpServer : MonoBehaviour, IDisposable
         {
             server.Stop();
         }
+    }
+    public void GetClient(){
+        try{
+            textCollector.AddDebugText("client = null");
+            client = server.AcceptTcpClient();
+        }
+        catch(Exception ex){
+            textCollector.AddDebugText("accepting failed"+ex);
+        }
+
+        textCollector.AddDebugText("client =" + client);
+        textCollector.AddDebugText("Connected!");
+        try{    
+            textCollector.AddDebugText("trying getstream");
+            stream = client.GetStream();
+            SendMessageToClient("connected");
+        }
+        catch(Exception ex){
+            textCollector.AddDebugText("getting stream failed"+ex);
+        }
+    }
+    public void ReadClientStream(){
+        byte[] buffer = new byte[10024];
+        string data = null;
+        int i;
+        int read = 0;
+        while ((i = stream.Read(buffer, read, buffer.Length - read)) != 0)
+        {
+            read += i;
+            print(i);
+            data = Encoding.UTF8.GetString(buffer, 0, i);
+            Debug.Log("Received: " + data);
+            /*
+            for (int Clienti = 0; Clienti < Clients.Count; Clienti ++)
+            {
+                
+                if (Clients[Clienti] == client)
+                {
+                    if(ClientIsAnsweringNumber[Clienti] == true)
+                    {
+                        
+                        serverhandler.CommandAddPoints.amount = int.Parse(data);
+                        serverhandler.CommandAddPoints.Invoke();
+                        
+                    }
+                    else if (ClientIsAnsweringString[Clienti] == true)
+                    {
+
+                    }
+                }
+            }
+            */
+            serverhandler.responceToServerMessage(data);
+            Debug.Log("Server response: " + data.ToString());
+        }
+        Debug.Log("GaatVoorbijWhileLoop");
+        //client.Close();
     }
     public void ResponceToClient(string message)
     {
@@ -126,10 +155,10 @@ public class TcpServer : MonoBehaviour, IDisposable
         Debug.Log("Sent: " + message);
     }
     public void SendDataToClient(byte[] bytes){
-        print("client: " + client);
+        textCollector.AddDebugText("client: " + client);
         print(stream);
         stream.Write(bytes,0, bytes.Length);
-        print("written stream" + bytes);
+        textCollector.AddDebugText("written stream" + bytes);
 
     }
 

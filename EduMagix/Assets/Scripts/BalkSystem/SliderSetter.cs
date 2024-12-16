@@ -18,8 +18,10 @@ public class SliderSetter : MonoBehaviour
         
     }
     public void Set(Data data){
+        DebugTextCollector textCollector = DebugTextCollector.GetTextCollector();
         slider = gameObject.GetComponent<Slider>();
         slider.value = data.currentAmountOfPoints;
+        textCollector.AddDebugText("slidervalue" + slider.value);
         gameObject.transform.GetChild(3).GetComponent<Image>().sprite = data.convertToSprite();
     }
 }

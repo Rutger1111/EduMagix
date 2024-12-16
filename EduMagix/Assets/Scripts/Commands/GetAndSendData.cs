@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class GetAndSendData : BaseCommandClass
 {
-    public override void Invoke(string Input, string clas = "a")
+    public override void Invoke(Data data)
     {
+    }
+
+    public override void Invoke(string Input)
+    {
+        throw new System.NotImplementedException();
     }
 
 

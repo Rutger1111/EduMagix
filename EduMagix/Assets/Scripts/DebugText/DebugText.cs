@@ -14,18 +14,7 @@ public class DebugText : MonoBehaviour
     void Start()
     {
         textCollector = DebugTextCollector.GetTextCollector();
-        textCollector.AddDebugText("hoi");
-        textCollector.AddDebugText("hoiik");
-        textCollector.AddDebugText("hoiben");
-        textCollector.AddDebugText("hoijouw");
-        textCollector.AddDebugText("hoi");
-        textCollector.AddDebugText("hoiik");
-        textCollector.AddDebugText("hoiben");
-        textCollector.AddDebugText("hoijouw");
-        textCollector.AddDebugText("hoi");
-        textCollector.AddDebugText("hoiik");
-        textCollector.AddDebugText("hoiben");
-        textCollector.AddDebugText("hoijouw");
+
     }
 
     // Update is called once per frame

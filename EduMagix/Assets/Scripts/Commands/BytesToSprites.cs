@@ -10,7 +10,7 @@ public class BytesToSprites : BaseCommandClass
 {
     Texture2D tex;
     Byte[] fileData;
-    public override void Invoke(string Input, string clas = "a")
+    public override void Invoke(string Input)
     {
         if(File.Exists(Input)){
             fileData = File.ReadAllBytes(Input);
@@ -21,5 +21,10 @@ public class BytesToSprites : BaseCommandClass
     }
     public void hallo(){
 
+    }
+
+    public override void Invoke(Data data)
+    {
+        throw new NotImplementedException();
     }
 }

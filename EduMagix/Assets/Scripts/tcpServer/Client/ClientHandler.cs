@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -7,16 +8,18 @@ using UnityEngine.UI;
 
 public class ClientHandler : MonoBehaviour, IWorkers
 {
-    public bool ConfiguratingHouse;
-    public bool ConfiguratingNumber;
+    //public bool ConfiguratingHouse;
+    //public bool ConfiguratingNumber;
     //public bool Configurating;
-    public List<string> messagesForAddPoints;
-    public int indexForAddPointsSteps;
+    //public List<string> messagesForAddPoints;
+    //public int indexForAddPointsSteps;
+    public List<BaseCommandClass> baseCommandClasses;
+    public List<Data> datas = new List<Data>();
     public Client client;
     public SplitStrings splitStrings = new SplitStrings();
     public string HouseToAddPointsTo;
     public TMP_InputField inputField;
-    public List<Data> datas;
+    //public List<Data> datas;
     public byte[] testTexture;
     public string[] actionString;
     public Dictionary<string, GameObject> sliders = new Dictionary<string, GameObject>();
@@ -108,15 +111,23 @@ public class ClientHandler : MonoBehaviour, IWorkers
     }
     public void regristerNewKlas(Data data)
     {
-        ListOfData listOfData = ListOfData.GetListOfData();
-        listOfData.AddData(data);
-        if(!sliders.ContainsKey(data.houseName)){
-            sliders[data.houseName] = GameObject.Instantiate(prefabSlider, GameObject.Find("HouseCounters").transform);
-            sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
+        DebugTextCollector textCollector = DebugTextCollector.GetTextCollector();
+        try{
+            ListOfData listOfData = ListOfData.GetListOfData();
+            listOfData.AddData(data);
+            if(!sliders.ContainsKey(data.houseName)){
+                sliders[data.houseName] = GameObject.Instantiate(prefabSlider, GameObject.Find("HouseCounters").transform);
+                sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
+                textCollector.AddDebugText("madeslider" + sliders[data.houseName]);
+            }
+            else{
+                sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
+            }
         }
-        else{
-            sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
+        catch(Exception ex){
+            textCollector.AddDebugText("" + ex);
         }
+
         
     }
 }

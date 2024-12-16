@@ -6,47 +6,73 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
+
 public class Client : MonoBehaviour
 {
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
     public int serverPort = 33435;             // Set this to your server's port.
     private string messageToSend = "Hello Server!"; // The message to send.
     public SetUpData setUpData;
-    private TcpClient client;
+    TcpClient client;
     private NetworkStream stream;
     private Thread clientReceiveThread;
     public ClientHandler clientHandler;
+    public ISliderSetUpCommand sliderSetUpCommand;
     DebugTextCollector textCollector;
+
+
+    private float delay;
+    private float timer;
     void Start()
     {
+        delay = 1.0f;
+        timer = 0.0f;
+        sliderSetUpCommand = GetComponent<ISliderSetUpCommand>();
         textCollector = DebugTextCollector.GetTextCollector();
         //serverIP = new WebClient().DownloadString("http://icanhazip.com/");
-        ConnectToServer();
+        //ConnectToServer();
     }
 
     void Update()
     {
 
+        timer += Time.deltaTime;
+        if(timer > delay){
+            if(client == null){
+                textCollector.AddDebugText("Connecting");
+                ConnectToServer();
+            }
+            delay += 0.25f;
+            timer = 0;
+        }
     }
 
     void ConnectToServer()
     {
-        
+        uPnPHelper.DebugMode = true;
+        uPnPHelper.LogErrors = true;
+        uPnPHelper.Start(uPnPHelper.Protocol.TCP, 33434, 0, "Unity uPnP Port Forward Test.");
+        textCollector.AddDebugText("called ConnectToSever");
         try
         {
+            textCollector.AddDebugText("komtHIer");
             //textCollector.AddDebugText((setUpData.SavedDatas[0].IP));
-            if (setUpData.SavedDatas[0].IP == "")
+            /*
+            if (setUpData.SavedDatas[0].IP == "" || setUpData.SavedDatas[0].IP == null)
             {
+                textCollector.AddDebugText("didnt see ip");
                 string strHostName = "";
                 strHostName = System.Net.Dns.GetHostName();
                 var ipEntry = Dns.GetHostEntry(strHostName);
                 var addr = ipEntry.AddressList;
 
             }
-            Debug.Log(setUpData.SavedDatas[0].IP);
-            client = new TcpClient(setUpData.SavedDatas[0].IP, serverPort);
+            textCollector.AddDebugText(setUpData.SavedDatas[0].IP);
+            */
+            textCollector.AddDebugText("KomtHIer bij de client = new client");
+            client = new TcpClient("10.70.38.113", 33434);
             stream = client.GetStream();
-            Debug.Log("Connected to server.");
+            textCollector.AddDebugText("Connected to server.");
 
             clientReceiveThread = new Thread(new ThreadStart(ListenForData));
             clientReceiveThread.IsBackground = true;
@@ -54,17 +80,17 @@ public class Client : MonoBehaviour
         }
         catch (SocketException e)
         {
-            Debug.LogError("SocketException: " + e.ToString());
+            textCollector.AddDebugText("SocketException: " + e.ToString());
         }
     }
 
     private void ListenForData()
     {
-
-
+        textCollector.AddDebugText("client" + client);
+        textCollector.AddDebugText("stream" + stream);
         try
         {
-            byte[] bytes = new byte[1024000];
+            byte[] bytes = new byte[4096];
             while (true)
             {
 
@@ -86,11 +112,13 @@ public class Client : MonoBehaviour
                             clientHandler.responceToServerMessage(serverMessage);
                             textCollector.AddDebugText("Server message received: " + serverMessage);                            
                         }
+                        // if bigger then normal variables then convert to class
                         else{
                             textCollector.AddDebugText("dataclasss");
                             Data data = new Decryptor().DeserializeDB(bytes);
                             textCollector.AddDebugText("klaspunten" + data.currentAmountOfPoints);
-                            clientHandler.regristerNewKlas(data);
+                            clientHandler.datas.Add(data);
+                            clientHandler.baseCommandClasses.Add(sliderSetUpCommand);
                         }
                     }
                 }
@@ -98,7 +126,7 @@ public class Client : MonoBehaviour
         }
         catch (SocketException socketException)
         {
-            Debug.Log("Socket exception: " + socketException);
+            textCollector.AddDebugText("Socket exception: " + socketException);
         }
     }
     public void ResponceToClient(string message)
