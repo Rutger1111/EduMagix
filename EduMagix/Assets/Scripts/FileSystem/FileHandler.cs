@@ -24,7 +24,7 @@ public class FileHandler
     {
         Debug.Log("dit is de IP ");
 
-        FileSystem.GetFileSystem().Write("ClassA", 20, "/SaveData");
+        //FileSystem.GetFileSystem().Write("ClassA", 20, "/SaveData");
     }
 
     // Update is called once per frame

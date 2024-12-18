@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
-using System;
-using JetBrains.Annotations;
+
 using System.Runtime.Serialization.Formatters.Binary;
+
 public class Serverhandler : MonoBehaviour, IWorkers
 {
     public List<BaseCommandClass> baseCommandClasses;
@@ -20,7 +18,10 @@ public class Serverhandler : MonoBehaviour, IWorkers
     public string[] actionString;
     public List<BaseCommandClass> baseCommands;
     public string HouseToAddPointsTo;
-
+    void Start()
+    {
+        
+    }
     public void selectClass(string House)
     {
         HouseToAddPointsTo = House;

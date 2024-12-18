@@ -20,7 +20,7 @@ public class Database : MonoBehaviour
     void Start()
     {
         listOfData = ListOfData.GetListOfData();
-        testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "a", 10, 20);
+        //testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "a", 10, 20);
         CreateDB();
         ReadAllClass();
     }
