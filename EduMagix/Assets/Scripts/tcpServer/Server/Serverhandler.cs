@@ -22,10 +22,6 @@ public class Serverhandler : MonoBehaviour, IWorkers
     {
         
     }
-    public void selectClass(string House)
-    {
-        HouseToAddPointsTo = House;
-    }
     public void Callback(string[] words, int numbers)
     {
         actionString = new string[words.Length];

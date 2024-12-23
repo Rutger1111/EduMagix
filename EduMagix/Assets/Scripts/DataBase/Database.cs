@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -15,10 +16,11 @@ public class Database : MonoBehaviour
     public byte[] testTexture;
     public Serverhandler serverhandler;
     ListOfData listOfData;
-    DebugTextCollector textCollector = DebugTextCollector.GetTextCollector();
+    DebugTextCollector textCollector;
     // Start is called before the first frame update
     void Start()
     {
+        textCollector  = DebugTextCollector.GetTextCollector();
         listOfData = ListOfData.GetListOfData();
         //testData = new Data(testTexture = File.ReadAllBytes("C:/Beegame/ugh/EduMagix/EduMagix/Assets/art/Argentavis.png"), "a", 10, 20);
         CreateDB();
@@ -132,9 +134,11 @@ public class Database : MonoBehaviour
                             using (var stream = new System.IO.MemoryStream(bytes)){
                                 Data data = (Data)formatter.Deserialize(stream);
                                 //Sprite test = data.convertToSprite();
-                                print("deserialized data" + data + data.houseName);   
+                                textCollector.AddDebugText("deserialized data" + data.houseName);   
                                 listOfData.AddData(data); 
-                                print("added" + listOfData.GetData("a").houseName);   
+                                textCollector.AddDebugText("listofate:" + listOfData);
+
+                                //print("added" + listOfData.GetData("a").houseName);   
                             }
 
                         }
@@ -148,4 +152,8 @@ public class Database : MonoBehaviour
         }
     }
 
+    internal void AddClass()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -18,7 +18,6 @@ public class ListOfData
 
     Dictionary<string,Data> datas;
     public void AddData(Data data){
-
         data.houseName = "a";
         if(listOfData.datas.ContainsKey("a") == true){
             listOfData.datas["a"] = data;
@@ -31,7 +30,8 @@ public class ListOfData
     }
     public Data GetData(string houseName){
         return ListOfData.listOfData.datas[houseName];
-
     }
-
+    public List<string> GetDatasKeys(){
+        return new List<string>(datas.Keys);
+    }
 }
