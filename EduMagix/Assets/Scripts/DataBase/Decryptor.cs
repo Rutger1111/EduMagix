@@ -9,11 +9,12 @@ public class Decryptor : MonoBehaviour
     public Data DeserializeDB(byte[] bytes){
         Data data = null;
         try{
-            var formatter  = new BinaryFormatter();
+            BinaryFormatter formatter  = new BinaryFormatter();
             
-            using(var stream = new System.IO.MemoryStream(bytes)){
-                Data data1 = (Data)formatter.Deserialize(stream);
-                data = data1;
+            using(var stream = new System.IO.MemoryStream(bytes, true)){
+                stream.Position = 0;
+                data = (Data)formatter.Deserialize(stream);
+                DebugTextCollector.GetTextCollector().AddDebugText("data" + data);
             }
         }
         catch(Exception ex){

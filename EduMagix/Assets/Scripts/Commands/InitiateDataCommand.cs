@@ -29,7 +29,8 @@ public class InitiateDataCommand : MonoBehaviour, ISimpleCommand
     }
     private void InitiateClassButton(Data data){
         GameObject textObject = Instantiate<GameObject>(buttonPrefab, gameObject.transform);
-        textObject.GetComponent<TMPro.TMP_Text>().text = data.houseName;
+        print(textObject);
+        textObject.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = data.houseName;
         textObject.GetComponent<SelecHouseCommand>().HouseName = data.houseName;
     }
 

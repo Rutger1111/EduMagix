@@ -8,6 +8,7 @@ public class SelecHouseCommand : MonoBehaviour, ISimpleCommand
     public string HouseName;
     public void Invoke()
     {
+        serverhandler = GameObject.Find("Client").GetComponent<Serverhandler>();
         serverhandler.HouseToAddPointsTo = HouseName;
     }
 }

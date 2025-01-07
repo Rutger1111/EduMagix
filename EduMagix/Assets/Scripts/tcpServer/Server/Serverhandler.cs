@@ -4,6 +4,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 
 using System.Runtime.Serialization.Formatters.Binary;
+using System;
 
 public class Serverhandler : MonoBehaviour, IWorkers
 {
@@ -97,6 +98,8 @@ public class Serverhandler : MonoBehaviour, IWorkers
         using (var stream = new System.IO.MemoryStream()){
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(stream, data);
+            stream.Flush();
+            DebugTextCollector.GetTextCollector().AddDebugText("slenght"+stream.Length);
             byte[] bytes = stream.ToArray();
             DebugTextCollector.GetTextCollector().AddDebugText("sendData");
 
