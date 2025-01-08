@@ -52,17 +52,12 @@ public class Database : MonoBehaviour
         textCollector.AddDebugText("" + aanwezigen);
         Data data = ReadClass(serverhandler.HouseToAddPointsTo);
         textCollector.AddDebugText("hoii" + data.currentAmountOfPoints + data.houseName);
-        if (aanwezigen <= data.aantalLeerlingen){
-            data.currentAmountOfPoints += 100 / data.aantalLeerlingen * aanwezigen;
+        if (aanwezigen <= data.aantalLeerlingen && aanwezigen > 0){
+            data.currentAmountOfPoints += ((100 / data.aantalLeerlingen) * aanwezigen);
         }
         textCollector.AddDebugText("hoi" + data.currentAmountOfPoints + data.houseName);
         AddClass(serverhandler.HouseToAddPointsTo, data);
-        BinaryFormatter formatter = new BinaryFormatter();
-        using (var stream = new System.IO.MemoryStream()){
-                formatter.Serialize(stream,data);
-            byte[] bytes = stream.ToArray();
-        }
-
+        ListOfData.GetListOfData().AddData(data);
 
     }
     public void AddClass(string className, Data data){
@@ -72,15 +67,12 @@ public class Database : MonoBehaviour
 
                 using (var command = connection.CreateCommand()){
                     var formatter = new BinaryFormatter();
-                    using (var stream = new System.IO.MemoryStream()){
-
-                        formatter.Serialize(stream, data);
-                        byte[] dataBytes = stream.ToArray();
+                        byte[] dataBytes = new Decryptor().SerializeDB(data);
                         command.CommandText = "INSERT OR REPLACE INTO classes (class, dataClass) VALUES (@className, @data);";
                         command.Parameters.AddWithValue("@className", className);
                         command.Parameters.AddWithValue("@data", dataBytes);
                         command.ExecuteNonQuery();                        
-                    }
+                    
                 }
             }
         }
@@ -101,10 +93,9 @@ public class Database : MonoBehaviour
                             BinaryFormatter formatter = new BinaryFormatter();
                             object obj = reader["dataClass"];
                             byte[] bytes = (byte[])obj;
-                            using (var stream = new System.IO.MemoryStream(bytes)){
-                                Data data = (Data)formatter.Deserialize(stream);
-                                return data;
-                            }
+                            Data data = new Decryptor().DeserializeDB(bytes);
+                            return data;
+                        
                         }
 
                     }
@@ -131,15 +122,15 @@ public class Database : MonoBehaviour
                             Debug.Log("Name: " +  reader["class"]);
                             object obj = reader["dataClass"]; 
                             byte[] bytes = (byte[])obj;
-                            using (var stream = new System.IO.MemoryStream(bytes)){
-                                Data data = (Data)formatter.Deserialize(stream);
-                                //Sprite test = data.convertToSprite();
-                                textCollector.AddDebugText("deserialized data" + data.houseName);   
-                                listOfData.AddData(data); 
-                                textCollector.AddDebugText("listofate:" + listOfData);
+                        
+                            Data data = new Decryptor().DeserializeDB(bytes);
+                            //Sprite test = data.convertToSprite();
+                            textCollector.AddDebugText("deserialized data" + data.houseName);   
+                            listOfData.AddData(data); 
+                            textCollector.AddDebugText("listofate:" + listOfData);
 
-                                //print("added" + listOfData.GetData("a").houseName);   
-                            }
+                            //print("added" + listOfData.GetData("a").houseName);   
+                        
 
                         }
                     }

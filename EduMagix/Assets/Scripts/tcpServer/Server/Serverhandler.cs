@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+using Unity.VisualScripting;
 
 public class Serverhandler : MonoBehaviour, IWorkers
 {
@@ -95,16 +96,11 @@ public class Serverhandler : MonoBehaviour, IWorkers
         DebugTextCollector.GetTextCollector().AddDebugText("kwam hier");
         ListOfData listOfData = ListOfData.GetListOfData();
         Data data = listOfData.GetData(HouseToAddPointsTo);
-        using (var stream = new System.IO.MemoryStream()){
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, data);
-            stream.Flush();
-            DebugTextCollector.GetTextCollector().AddDebugText("slenght"+stream.Length);
-            byte[] bytes = stream.ToArray();
-            DebugTextCollector.GetTextCollector().AddDebugText("sendData");
+        
+        byte[] bytes = new Decryptor().SerializeDB(data);
+        DebugTextCollector.GetTextCollector().AddDebugText("sendData");
 
-            server.SendDataToClient(bytes);
-        }
+        server.SendDataToClient(bytes);
 
     }
 }

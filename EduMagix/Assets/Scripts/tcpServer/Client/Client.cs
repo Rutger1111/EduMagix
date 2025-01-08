@@ -107,7 +107,7 @@ public class Client : MonoBehaviour
                         Array.Copy(bytes, 0, incomingData, 0, length);
                         textCollector.AddDebugText("" + length);
                         // Convert byte array to string message.
-                        if (incomingData.Length < 50){
+                        if (incomingData.Length < 10){
                             string serverMessage = Encoding.UTF8.GetString(incomingData);
                             clientHandler.responceToServerMessage(serverMessage);
                             textCollector.AddDebugText("Server message received: " + serverMessage);                            

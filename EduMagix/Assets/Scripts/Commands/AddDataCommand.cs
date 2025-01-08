@@ -13,8 +13,7 @@ public class AddDataCommand : MonoBehaviour, ISimpleCommand
     public TMPro.TMP_InputField houseImageInputfield;
     public void Invoke()
     {
-        byte[] fileData = File.ReadAllBytes(houseImageInputfield.text);
-        Data data = new Data(fileData,houseNameInputfield.text,float.Parse(housePointsInputfield.text), int.Parse(houseStudentCount.text));
+        Data data = new Data(int.Parse(houseImageInputfield.text),houseNameInputfield.text,float.Parse(housePointsInputfield.text), int.Parse(houseStudentCount.text));
         database.AddClass(data.houseName, data);
     }
 }

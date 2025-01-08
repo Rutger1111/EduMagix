@@ -22,9 +22,7 @@ public class ClientHandler : MonoBehaviour, IWorkers
     //public List<Data> datas;
     public byte[] testTexture;
     public string[] actionString;
-    public Dictionary<string, GameObject> sliders = new Dictionary<string, GameObject>();
 
-    public GameObject prefabSlider;
     public void Callback(string[] words, int numbers)
     {
         actionString = new string[words.Length];
@@ -75,7 +73,7 @@ public class ClientHandler : MonoBehaviour, IWorkers
         */
     }
     public void sendPercentage(){
-        datas[0] = new Data(testTexture, "hoi", 10, 20);
+        //datas[0] = new Data(0, "hoi", 10, 20);
         client.ResponceToClient("AddNumbers, " + 100 / datas[0].aantalLeerlingen * int.Parse(inputField.text) + HouseToAddPointsTo);
     }
     public void selectClass(string House)
@@ -109,25 +107,5 @@ public class ClientHandler : MonoBehaviour, IWorkers
                 break;
         }
     }
-    public void regristerNewKlas(Data data)
-    {
-        DebugTextCollector textCollector = DebugTextCollector.GetTextCollector();
-        try{
-            ListOfData listOfData = ListOfData.GetListOfData();
-            listOfData.AddData(data);
-            if(!sliders.ContainsKey(data.houseName)){
-                sliders[data.houseName] = GameObject.Instantiate(prefabSlider, GameObject.Find("HouseCounters").transform);
-                sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
-                textCollector.AddDebugText("madeslider" + sliders[data.houseName]);
-            }
-            else{
-                sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
-            }
-        }
-        catch(Exception ex){
-            textCollector.AddDebugText("" + ex);
-        }
 
-        
-    }
 }

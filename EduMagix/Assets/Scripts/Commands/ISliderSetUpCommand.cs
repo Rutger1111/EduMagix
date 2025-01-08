@@ -15,7 +15,8 @@ public class ISliderSetUpCommand : BaseCommandClass
 
     public override void Invoke(string Input)
     {
-        throw new NotImplementedException();
+        DebugTextCollector.GetTextCollector().AddDebugText("Invoked");
+
     }
 
     public void regristerNewKlas(Data data)

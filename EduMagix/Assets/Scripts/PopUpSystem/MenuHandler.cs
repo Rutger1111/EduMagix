@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class MenuHandler : MonoBehaviour
 {
+    public GameObject DebugLog;
+    public void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Minus)){
+            PopUp(DebugLog);
+        }
+    }
     public void PopUp(GameObject popUp){
         switch(popUp.activeInHierarchy){
             case true:
