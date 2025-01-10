@@ -70,7 +70,7 @@ public class Client : MonoBehaviour
             textCollector.AddDebugText(setUpData.SavedDatas[0].IP);
             */
             textCollector.AddDebugText("KomtHIer bij de client = new client");
-            client = new TcpClient("10.70.38.113", 33435);
+            client = new TcpClient("192.168.2.12", 33435);
             stream = client.GetStream();
             textCollector.AddDebugText("Connected to server.");
 
@@ -116,10 +116,12 @@ public class Client : MonoBehaviour
                         else{
                             textCollector.AddDebugText("dataclasss");
                             Data data = new Decryptor().DeserializeDB(bytes);
-                            //textCollector.AddDebugText("klaspunten" + data.currentAmountOfPoints);
+                            textCollector.AddDebugText("klaspunten" + data.currentAmountOfPoints);
                             ListOfData.GetListOfData().AddData(data);
                             clientHandler.datas.Add(data);
                             clientHandler.baseCommandClasses.Add(sliderSetUpCommand);
+                            SendMessageToServer("Received");
+                            textCollector.AddDebugText("sendtMessage");
                         }
                     }
                 }

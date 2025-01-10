@@ -63,11 +63,11 @@ public class Serverhandler : MonoBehaviour, IWorkers
             server.ResponceToClient("numbersAdded");
         }
         */
+        DebugTextCollector.GetTextCollector().AddDebugText("Responces to client message");
         splitStrings.splitNumbers(this, message);
-        Debug.Log(actionString[0]);
+        DebugTextCollector.GetTextCollector().AddDebugText(actionString[0]);
         switch(actionString[0])
         {
-
             case "SelectClass":
                 server.ResponceToClient("classSelectTrue");
                 break;
@@ -83,8 +83,10 @@ public class Serverhandler : MonoBehaviour, IWorkers
                 Debug.Log(House[House.Count - 1]);
                 server.ResponceToClient("respondNumberToAdd");
                 break;
-            case "Percentage":
-            
+            case "Received":
+                DebugTextCollector.GetTextCollector().AddDebugText("got into case");
+                server.SendNextData();
+                DebugTextCollector.GetTextCollector().AddDebugText("sendt next data");
                 break;
             case "classData":
 

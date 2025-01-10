@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class InitiateDataCommand : MonoBehaviour, ISimpleCommand
+public class InitiateDataButtons : MonoBehaviour
 {
     public Serverhandler serverhandler;
     public GameObject buttonPrefab;
     public Database database;
     private ListOfData listOfData;
     private List<string> keys;
+    public GameObject contentObject;
     private DebugTextCollector textCollector;
     // Start is called before the first frame update
     void Start()
@@ -22,13 +23,14 @@ public class InitiateDataCommand : MonoBehaviour, ISimpleCommand
         InitiateAllClassButtons();
     }
     private void InitiateAllClassButtons(){
-        for (int I = 0; I < keys.Count; I ++){
-            Data data = listOfData.GetData(keys[I]);
+        for (int I = 0; I < listOfData.names.Count; I ++){
+            Data data = listOfData.GetData(listOfData.names[I]);
+            textCollector.AddDebugText("initiated " + data.houseName + keys.Count);
             InitiateClassButton(data);
         }
     }
-    private void InitiateClassButton(Data data){
-        GameObject textObject = Instantiate<GameObject>(buttonPrefab, gameObject.transform);
+    public void InitiateClassButton(Data data){
+        GameObject textObject = Instantiate<GameObject>(buttonPrefab, contentObject.gameObject.transform);
         print(textObject);
         textObject.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = data.houseName;
         textObject.GetComponent<SelecHouseCommand>().HouseName = data.houseName;

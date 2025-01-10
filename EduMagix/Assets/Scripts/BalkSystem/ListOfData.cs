@@ -17,16 +17,18 @@ public class ListOfData
     }
 
     Dictionary<string,Data> datas;
+    public List<string> names = new List<string>();
     public void AddData(Data data){
-        data.houseName = "a";
-        if(listOfData.datas.ContainsKey("a") == true){
-            listOfData.datas["a"] = data;
+        DebugTextCollector.GetTextCollector().AddDebugText(""+data.houseName);
+        if(listOfData.datas.ContainsKey(data.houseName) == true){
+            listOfData.datas[data.houseName] = data;
         }
-        else if(listOfData.datas.ContainsKey("a") == false){
+        else if(listOfData.datas.ContainsKey(data.houseName) == false){
             ListOfData.listOfData.datas.Add(data.houseName, data); 
+            names.Add(data.houseName);
         }
 
-        Debug.Log("komt hier    " + listOfData.datas["a"] + data.houseName); 
+        Debug.Log("komt hier    " + listOfData.datas[data.houseName] + data.houseName); 
     }
     public Data GetData(string houseName){
         return ListOfData.listOfData.datas[houseName];

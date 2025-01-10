@@ -41,8 +41,19 @@ public class ISliderSetUpCommand : BaseCommandClass
         catch(Exception ex){
             textCollector.AddDebugText("" + ex);
         }
-
+        levelSliders();
         
+    }
+    public void levelSliders(){
+        GameObject houseCounters = GameObject.Find("HouseCounters");
+        float totalPoints = 0;
+        for (int I = 0; I < houseCounters.transform.childCount; I++){
+            totalPoints += houseCounters.transform.GetChild(I).GetComponent<SliderSetter>().housePoints;
+        }
+        for (int I = 0; I < houseCounters.transform.childCount; I++){
+            GameObject sliderObject = houseCounters.transform.GetChild(I).gameObject;
+            sliderObject.GetComponent<Slider>().value = (100  / totalPoints) * sliderObject.GetComponent<SliderSetter>().housePoints;
+        }
     }
 
 }

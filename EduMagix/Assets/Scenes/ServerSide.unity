@@ -814,7 +814,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1079548482}
   m_HandleRect: {fileID: 1079548481}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 619730844}
   m_HandleRect: {fileID: 619730843}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1563,6 +1563,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugLog: {fileID: 1628524250}
+  serverhandler: {fileID: 0}
+  houseImages: {fileID: 11400000, guid: 95f65fb1bdca13f4fbe0370e93277f18, type: 2}
 --- !u!1001 &6104059407533830374
 PrefabInstance:
   m_ObjectHideFlags: 0

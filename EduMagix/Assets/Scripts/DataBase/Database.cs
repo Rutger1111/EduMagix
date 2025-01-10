@@ -71,7 +71,8 @@ public class Database : MonoBehaviour
                         command.CommandText = "INSERT OR REPLACE INTO classes (class, dataClass) VALUES (@className, @data);";
                         command.Parameters.AddWithValue("@className", className);
                         command.Parameters.AddWithValue("@data", dataBytes);
-                        command.ExecuteNonQuery();                        
+                        command.ExecuteNonQuery();
+                        listOfData.AddData(data);   
                     
                 }
             }
@@ -127,7 +128,7 @@ public class Database : MonoBehaviour
                             //Sprite test = data.convertToSprite();
                             textCollector.AddDebugText("deserialized data" + data.houseName);   
                             listOfData.AddData(data); 
-                            textCollector.AddDebugText("listofate:" + listOfData);
+                            textCollector.AddDebugText("listofate:" + listOfData.GetData(data.houseName).houseName + "," + listOfData.names.Count);
 
                             //print("added" + listOfData.GetData("a").houseName);   
                         

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class AddDataCommand : MonoBehaviour, ISimpleCommand
 {
+    public InitiateDataButtons initiateData;
+    public TcpServer server;
     public Database database;
     public TMPro.TMP_InputField houseNameInputfield;
     public TMPro.TMP_InputField housePointsInputfield;
@@ -15,5 +17,9 @@ public class AddDataCommand : MonoBehaviour, ISimpleCommand
     {
         Data data = new Data(int.Parse(houseImageInputfield.text),houseNameInputfield.text,float.Parse(housePointsInputfield.text), int.Parse(houseStudentCount.text));
         database.AddClass(data.houseName, data);
+        if(server.client != null){
+            server.SendDataToClient(new Decryptor().SerializeDB(data));
+        }
+        initiateData.InitiateClassButton(data);
     }
 }

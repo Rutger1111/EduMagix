@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SliderSetter : MonoBehaviour
 {
+    public float housePoints;
     public HouseImages houseImages;
     Slider slider;
     // Start is called before the first frame update
@@ -20,9 +21,8 @@ public class SliderSetter : MonoBehaviour
     }
     public void Set(Data data){
         DebugTextCollector textCollector = DebugTextCollector.GetTextCollector();
-        slider = gameObject.GetComponent<Slider>();
-        slider.value = data.currentAmountOfPoints;
-        textCollector.AddDebugText("slidervalue" + slider.value);
+        housePoints = data.currentAmountOfPoints;
+        textCollector.AddDebugText("slidervalue");
         print("jioefhjuiojegtrhjin" +data.houseImage);
         gameObject.transform.GetChild(3).GetComponent<RawImage>().texture = houseImages.houseTextures[data.houseImage];
     }

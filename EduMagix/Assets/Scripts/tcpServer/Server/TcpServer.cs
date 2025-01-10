@@ -11,7 +11,7 @@ public class TcpServer : MonoBehaviour, IDisposable
 {
 
     TcpListener server = null;
-    TcpClient client = null;
+    public TcpClient client = null;
     NetworkStream stream = null;
     Thread thread;
     public List<TcpClient> Clients;
@@ -21,6 +21,7 @@ public class TcpServer : MonoBehaviour, IDisposable
     public SetUpData setUpData;
     public DebugTextCollector textCollector;
     public PortForwarder portForwarder;
+    public List<Data> datasToSend = new List<Data>(); 
     private void Start()
     {
         textCollector = DebugTextCollector.GetTextCollector();
@@ -80,7 +81,7 @@ public class TcpServer : MonoBehaviour, IDisposable
     }
     public void GetClient(){
         try{
-            //textCollector.AddDebugText("accepting client");
+            textCollector.AddDebugText("accepting client");
             client = server.AcceptTcpClient();
         }
         catch(Exception ex){
@@ -93,6 +94,8 @@ public class TcpServer : MonoBehaviour, IDisposable
             textCollector.AddDebugText("trying getstream");
             stream = client.GetStream();
             SendMessageToClient("connected");
+            GetInitializedData();
+            SendNextData();
         }
         catch(Exception ex){
             textCollector.AddDebugText("getting stream failed"+ex);
@@ -130,7 +133,7 @@ public class TcpServer : MonoBehaviour, IDisposable
             }
             */
             serverhandler.responceToServerMessage(data);
-            Debug.Log("Server response: " + data.ToString());
+            textCollector.AddDebugText("Server response: " + data.ToString());
         }
         Debug.Log("GaatVoorbijWhileLoop");
         //client.Close();
@@ -157,7 +160,26 @@ public class TcpServer : MonoBehaviour, IDisposable
         textCollector.AddDebugText("written stream" + bytes);
 
     }
+    public void GetInitializedData(){
+        ListOfData listOfData = ListOfData.GetListOfData();
+        for (int I = 0; I < listOfData.names.Count; I ++){
+            Data data = listOfData.GetData(listOfData.names[I]);
+            //textCollector.AddDebugText("initiated " + data.houseName);
+            datasToSend.Add(data);
+        }
+    }
+    public void SendNextData(){
+        if(datasToSend.Count >0){
+            textCollector.AddDebugText("isgoing to send next data");
+            SendDataToClient(new Decryptor().SerializeDB(datasToSend[0]));
+            datasToSend.Remove(datasToSend[0]);
+            textCollector.AddDebugText("has sent next data");
+        }
+        else{
+            textCollector.AddDebugText("has sent everything");
 
+        }
+    }
     public void Dispose()
     {
         stream.Close();

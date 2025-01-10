@@ -14,7 +14,7 @@ public class Decryptor : MonoBehaviour
             Debug.Log(bytes.Length);
             Debug.Log(json.Length);
             Debug.Log(json);
-            //DebugTextCollector.GetTextCollector().AddDebugText(json);
+            DebugTextCollector.GetTextCollector().AddDebugText(json);
             data = JsonUtility.FromJson<Data>(json);
         }
         catch (Exception ex)
