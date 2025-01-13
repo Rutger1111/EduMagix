@@ -12,10 +12,10 @@ public class AddDataCommand : MonoBehaviour, ISimpleCommand
     public TMPro.TMP_InputField houseNameInputfield;
     public TMPro.TMP_InputField housePointsInputfield;
     public TMPro.TMP_InputField houseStudentCount;
-    public TMPro.TMP_InputField houseImageInputfield;
+    public chooseImage houseImageInputfield;
     public void Invoke()
     {
-        Data data = new Data(int.Parse(houseImageInputfield.text),houseNameInputfield.text,float.Parse(housePointsInputfield.text), int.Parse(houseStudentCount.text));
+        Data data = new Data(houseImageInputfield.index,houseNameInputfield.text,float.Parse(housePointsInputfield.text), int.Parse(houseStudentCount.text));
         database.AddClass(data.houseName, data);
         if(server.client != null){
             server.SendDataToClient(new Decryptor().SerializeDB(data));

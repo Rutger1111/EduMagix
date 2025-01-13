@@ -102,7 +102,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         }
     }
     public void ReadClientStream(){
-        byte[] buffer = new byte[10024];
+        byte[] buffer = new byte[1000024];
         string data = null;
         int i;
         int read = 0;

@@ -4,16 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using MessagePack;
 //[System.Serializable]
-[MessagePackObject]
 public class Data
 {
-    [Key(0)]
     public int aantalLeerlingen;
-    [Key(1)]
     public int houseImage;
-    [Key(2)]
     public string houseName;
-    [Key(3)]
     public float currentAmountOfPoints;
     
     public Data(int ImageIndex, string String, float Float, int AantalLeerlingen){

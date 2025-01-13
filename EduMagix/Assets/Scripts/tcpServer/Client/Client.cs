@@ -90,7 +90,7 @@ public class Client : MonoBehaviour
         textCollector.AddDebugText("stream" + stream);
         try
         {
-            byte[] bytes = new byte[4096];
+            byte[] bytes = new byte[1000024];
             while (true)
             {
 
