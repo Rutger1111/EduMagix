@@ -70,7 +70,7 @@ public class Client : MonoBehaviour
             textCollector.AddDebugText(setUpData.SavedDatas[0].IP);
             */
             textCollector.AddDebugText("KomtHIer bij de client = new client");
-            client = new TcpClient("192.168.2.12", 33435);
+            client = new TcpClient("192.168.1.3", 33434);
             stream = client.GetStream();
             textCollector.AddDebugText("Connected to server.");
 

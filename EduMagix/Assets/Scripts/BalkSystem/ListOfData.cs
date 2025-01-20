@@ -30,6 +30,10 @@ public class ListOfData
 
         Debug.Log("komt hier    " + listOfData.datas[data.houseName] + data.houseName); 
     }
+    public void Remove(string houseName){
+        datas.Remove(houseName);
+        names.Remove(houseName);
+    }
     public Data GetData(string houseName){
         return ListOfData.listOfData.datas[houseName];
     }

@@ -20,6 +20,7 @@ public class Serverhandler : MonoBehaviour, IWorkers
     public string[] actionString;
     public List<BaseCommandClass> baseCommands;
     public string HouseToAddPointsTo;
+    public EditData editData;
     void Start()
     {
         

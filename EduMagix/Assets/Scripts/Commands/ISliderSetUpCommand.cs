@@ -25,12 +25,17 @@ public class ISliderSetUpCommand : BaseCommandClass
         try{
             ListOfData listOfData = ListOfData.GetListOfData();
             listOfData.AddData(data);
-            if(!sliders.ContainsKey(data.houseName)){
+            if(!sliders.ContainsKey(data.houseName) && !sliders.ContainsKey(data.lastHouseName)){
                 textCollector.AddDebugText("doesnt contain "+data.houseName);
                 sliders[data.houseName] = GameObject.Instantiate(prefabSlider, GameObject.Find("HouseCounters").transform);
                 textCollector.AddDebugText("madeslider" + sliders[data.houseName]);
                 sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
                 textCollector.AddDebugText("settedSlider" + sliders[data.houseName]);
+            }
+            else if(sliders.ContainsKey(data.lastHouseName) && data.lastHouseName != null){
+                sliders.Add(data.houseName, sliders[data.lastHouseName]);
+                sliders.Remove(data.lastHouseName);
+                sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
             }
             else{
                 textCollector.AddDebugText("is setting slider");

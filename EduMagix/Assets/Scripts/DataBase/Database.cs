@@ -81,6 +81,38 @@ public class Database : MonoBehaviour
             Debug.LogError("database error Addclass" + ex.Message);
         }
     }
+    public void EditClass(string name, Data data){
+        try{
+            using (var connection = new SqliteConnection(DBName)){
+                connection.Open();
+
+                using (var command = connection.CreateCommand()){
+                    print(data.houseName);
+                    print(name);
+                    print(listOfData.GetData(name).houseName);
+                    command.CommandText = "INSERT OR REPLACE INTO classes (class, dataClass) VALUES (@className, @data);";
+                    command.Parameters.AddWithValue("@className", data.houseName);
+                    command.Parameters.AddWithValue("@data", new Decryptor().SerializeDB(data));
+                    //command.Parameters.AddWithValue("@oldClassName",  listOfData.GetData(name).houseName);
+                    command.ExecuteNonQuery();
+                    
+                    print("updated");
+                    if (name != data.houseName){
+                        command.CommandText = "DELETE FROM classes WHERE class = @oldClassName";
+                        command.Parameters.AddWithValue("@oldClassName", name);
+                        command.ExecuteNonQuery();
+                        print("DELETE");
+
+                    }
+
+                }
+                connection.Close();
+            }
+        }
+        catch(System.Exception ex){
+            Debug.LogError("database error Addclass" + ex.Message);
+        }
+    }
     public Data ReadClass(string className){
         try{
             using (var connection = new SqliteConnection(DBName)){

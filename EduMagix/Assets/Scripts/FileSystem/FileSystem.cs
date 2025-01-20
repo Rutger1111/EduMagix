@@ -16,7 +16,7 @@ public class FileSystem
         if (fileSystem == null)
         {
             fileSystem = new FileSystem();
-            fileSystem.DirectoryPath = Application.persistentDataPath + "/saveData";
+            fileSystem.DirectoryPath = Application.dataPath + "/saveData";
         }
         return fileSystem;
     }

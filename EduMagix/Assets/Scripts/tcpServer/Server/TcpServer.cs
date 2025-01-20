@@ -28,7 +28,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         thread = new Thread(new ThreadStart(SetupServer));
         uPnPHelper.DebugMode = true;
         uPnPHelper.LogErrors = true;
-        uPnPHelper.Start(uPnPHelper.Protocol.TCP, 33435, 0, "Unity uPnP Port Forward Test.");
+        uPnPHelper.Start(uPnPHelper.Protocol.TCP, 33434, 0, "Unity uPnP Port Forward Test.");
         thread.Start();
 
     }
@@ -55,7 +55,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         textCollector.AddDebugText(ipTest);
         IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
         textCollector.AddDebugText("used" +IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
-        server = new TcpListener(localAddr, 33435);
+        server = new TcpListener(localAddr, 33434);
         server.Start();
 
         try

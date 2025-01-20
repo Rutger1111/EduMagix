@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InitiateDataButtons : MonoBehaviour
 {
+    public MenuHandler menuHandler;
     public Serverhandler serverhandler;
     public GameObject buttonPrefab;
     public Database database;
@@ -29,11 +30,15 @@ public class InitiateDataButtons : MonoBehaviour
             InitiateClassButton(data);
         }
     }
+    
     public void InitiateClassButton(Data data){
         GameObject textObject = Instantiate<GameObject>(buttonPrefab, contentObject.gameObject.transform);
         print(textObject);
         textObject.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = data.houseName;
+
         textObject.GetComponent<SelecHouseCommand>().HouseName = data.houseName;
+        menuHandler.klasButtons.Add(data.houseName, textObject.gameObject);
+        print("made");
     }
 
     public void Invoke()

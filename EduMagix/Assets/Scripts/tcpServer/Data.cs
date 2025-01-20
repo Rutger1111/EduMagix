@@ -9,11 +9,12 @@ public class Data
     public int aantalLeerlingen;
     public int houseImage;
     public string houseName;
+    public string lastHouseName = null;
     public float currentAmountOfPoints;
     
     public Data(int ImageIndex, string String, float Float, int AantalLeerlingen){
         houseImage = ImageIndex;
-        
+        lastHouseName = String;
         houseName = String;
         currentAmountOfPoints = Float;
         aantalLeerlingen = AantalLeerlingen;

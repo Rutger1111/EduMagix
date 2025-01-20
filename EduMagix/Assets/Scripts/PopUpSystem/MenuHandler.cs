@@ -8,8 +8,7 @@ using UnityEngine.UI;
 public class MenuHandler : MonoBehaviour
 {
     public GameObject DebugLog;
-    public Serverhandler serverhandler;
-    public HouseImages houseImages;
+    public Dictionary<string, GameObject> klasButtons = new Dictionary<string, GameObject>();
 
     public void Update()
     {
@@ -27,11 +26,5 @@ public class MenuHandler : MonoBehaviour
                 break;
         }
     }
-    public void DisplayKlasStats(TMPro.TMP_Text klasName, TMPro.TMP_Text klasPoints, TMPro.TMP_Text klasStudentCount, RawImage KlasImage){
-        Data data = ListOfData.GetListOfData().GetData(serverhandler.HouseToAddPointsTo);
-        klasName.text = data.houseName;
-        klasPoints.text = "" + data.currentAmountOfPoints;
-        klasStudentCount.text = "" + data.aantalLeerlingen;
-        KlasImage.texture = houseImages.houseTextures[data.houseImage];
-    }
+
 }
