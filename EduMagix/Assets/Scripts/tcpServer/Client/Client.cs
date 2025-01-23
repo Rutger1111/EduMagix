@@ -51,7 +51,7 @@ public class Client : MonoBehaviour
     {
         uPnPHelper.DebugMode = true;
         uPnPHelper.LogErrors = true;
-        uPnPHelper.Start(uPnPHelper.Protocol.TCP, 33435, 0, "Unity uPnP Port Forward Test.");
+        uPnPHelper.Start(uPnPHelper.Protocol.TCP, 33434, 0, "Unity uPnP Port Forward Test.");
         textCollector.AddDebugText("called ConnectToSever");
         try
         {
@@ -70,7 +70,7 @@ public class Client : MonoBehaviour
             textCollector.AddDebugText(setUpData.SavedDatas[0].IP);
             */
             textCollector.AddDebugText("KomtHIer bij de client = new client");
-            client = new TcpClient("192.168.1.3", 33434);
+            client = new TcpClient("10.70.38.113", 33434);
             stream = client.GetStream();
             textCollector.AddDebugText("Connected to server.");
 
@@ -90,7 +90,7 @@ public class Client : MonoBehaviour
         textCollector.AddDebugText("stream" + stream);
         try
         {
-            byte[] bytes = new byte[1000024];
+            byte[] bytes = new byte[1024];
             while (true)
             {
 

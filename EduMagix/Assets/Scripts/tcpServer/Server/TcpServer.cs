@@ -43,16 +43,17 @@ public class TcpServer : MonoBehaviour, IDisposable
 
     private void SetupServer()
     {
+        textCollector.AddDebugText("server setupping");
+
 //        string ip = new WebClient().DownloadString("http://icanhazip.com/");
         string strHostName = "Server";
         strHostName = System.Net.Dns.GetHostName();
         var ipEntry =Dns.GetHostEntry(strHostName);
         var addr = ipEntry.AddressList;
         
-        FileHandler fileHandler = FileHandler.GetFileHandler();
+        //FileHandler fileHandler = FileHandler.GetFileHandler();
         
-        string ipTest = setUpData.SavedDatas[0].IP;
-        textCollector.AddDebugText(ipTest);
+        //string ipTest = setUpData.SavedDatas[0].IP;
         IPAddress localAddr = IPAddress.Parse(addr[addr.Length - 1].ToString());
         textCollector.AddDebugText("used" +IPAddress.Parse(addr[addr.Length - 1].ToString()) + "hoi");
         server = new TcpListener(localAddr, 33434);
@@ -102,7 +103,7 @@ public class TcpServer : MonoBehaviour, IDisposable
         }
     }
     public void ReadClientStream(){
-        byte[] buffer = new byte[1000024];
+        byte[] buffer = new byte[1024];
         string data = null;
         int i;
         int read = 0;
