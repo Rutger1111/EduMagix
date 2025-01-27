@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: tube
+    uniqueID: 2902991495
+    locked: 0
+  - name: mask
+    uniqueID: 669983585
+    locked: 0
