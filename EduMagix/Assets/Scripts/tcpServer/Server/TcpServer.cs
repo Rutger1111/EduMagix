@@ -107,7 +107,8 @@ public class TcpServer : MonoBehaviour, IDisposable
         string data = null;
         int i;
         int read = 0;
-        while ((i = stream.Read(buffer, read, buffer.Length - read)) != 0)
+
+        while ((i = stream.Read(buffer, read, buffer.Length - read)) != 0 && client != null)
         {
             read += i;
             print(i);
@@ -136,7 +137,8 @@ public class TcpServer : MonoBehaviour, IDisposable
             serverhandler.responceToServerMessage(data);
             textCollector.AddDebugText("Server response: " + data.ToString());
         }
-        Debug.Log("GaatVoorbijWhileLoop");
+        textCollector.AddDebugText("GaatVoorbijWhileLoop");
+        client = null;
         //client.Close();
     }
     public void ResponceToClient(string message)
