@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HouseName: 
+  editData: {fileID: 0}
 --- !u!114 &-8287737559673158596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,4 +308,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverhandler: {fileID: 0}
-  houseImages: {fileID: 11400000, guid: 95f65fb1bdca13f4fbe0370e93277f18, type: 2}
+  houseImages: {fileID: 11400000, guid: 0a574b732333dc547afcd26925808e4b, type: 2}

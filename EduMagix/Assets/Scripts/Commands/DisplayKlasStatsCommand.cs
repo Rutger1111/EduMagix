@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class DisplayKlasStatsCommand : MonoBehaviour, ISimpleCommand
 {
     public Serverhandler serverhandler;
-    public HouseImages houseImages;
+    public House houseImages;
     public void Invoke()
     {
         GameObject displayObject;
@@ -38,7 +38,7 @@ public class DisplayKlasStatsCommand : MonoBehaviour, ISimpleCommand
         klasName.text = "House Name " + data.houseName;
         klasPoints.text = "House Points " + data.currentAmountOfPoints;
         klasStudentCount.text = "Student Count " + data.aantalLeerlingen;
-        KlasImage.texture = houseImages.houseTextures[data.houseImage];
+        KlasImage.texture = houseImages.houseTextures[data.houseImage].texture;
     }
     public void DisplayKlasStats(TMP_InputField klasName, TMP_InputField klasPoints, TMP_InputField klasStudentCount, RawImage KlasImage){
         Data data = ListOfData.GetListOfData().GetData(serverhandler.HouseToAddPointsTo);
@@ -46,6 +46,6 @@ public class DisplayKlasStatsCommand : MonoBehaviour, ISimpleCommand
         klasName.text = "" + data.houseName;
         klasPoints.text = "" + data.currentAmountOfPoints;
         klasStudentCount.text = "" + data.aantalLeerlingen;
-        KlasImage.texture = houseImages.houseTextures[data.houseImage];
+        KlasImage.texture = houseImages.houseTextures[data.houseImage].texture;
     }
 }
