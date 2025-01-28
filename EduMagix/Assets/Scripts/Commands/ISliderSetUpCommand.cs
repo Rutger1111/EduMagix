@@ -33,8 +33,9 @@ public class ISliderSetUpCommand : BaseCommandClass
                 textCollector.AddDebugText("settedSlider" + sliders[data.houseName]);
             }
             else if(sliders.ContainsKey(data.lastHouseName) && data.lastHouseName != null){
-                sliders.Add(data.houseName, sliders[data.lastHouseName]);
+                GameObject tempSlider = sliders[data.lastHouseName];
                 sliders.Remove(data.lastHouseName);
+                sliders.Add(data.houseName, tempSlider);
                 sliders[data.houseName].GetComponent<SliderSetter>().Set(data);
             }
             else{

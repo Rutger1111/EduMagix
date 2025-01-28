@@ -24,7 +24,8 @@ public class SliderSetter : MonoBehaviour
         housePoints = data.currentAmountOfPoints;
         textCollector.AddDebugText("slidervalue");
         print("jioefhjuiojegtrhjin" +data.houseImage);
-        gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = houseImages.houseBarColor[data.houseImage];
+        gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = houseImages.houseBarColor[data.houseImage];
+        gameObject.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = houseImages.houseBarTopColor[data.houseImage];
 
         gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = houseImages.houseTextures[data.houseImage];
         gameObject.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = houseImages.houseShields[data.houseImage];

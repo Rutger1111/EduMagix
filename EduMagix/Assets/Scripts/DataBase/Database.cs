@@ -47,14 +47,19 @@ public class Database : MonoBehaviour
             Debug.LogError("database error" + ex.Message);
         }
     }
+    public void AddCustomPoints(int customPoints){
+        Data data = ReadClass(serverhandler.HouseToAddPointsTo);
+        data.currentAmountOfPoints += customPoints;
+        AddClass(serverhandler.HouseToAddPointsTo, data);
+        ListOfData.GetListOfData().AddData(data);
+        serverhandler.SendClass();
+    }
     public void AddPoints(TMPro.TMP_InputField aanwezigenText){
         int aanwezigen = int.Parse(aanwezigenText.text);
         textCollector.AddDebugText("" + aanwezigen);
         Data data = ReadClass(serverhandler.HouseToAddPointsTo);
         textCollector.AddDebugText("hoii" + data.currentAmountOfPoints + data.houseName);
-        if (aanwezigen <= data.aantalLeerlingen && aanwezigen > 0){
-            data.currentAmountOfPoints += ((100 / data.aantalLeerlingen) * aanwezigen);
-        }
+
         textCollector.AddDebugText("hoi" + data.currentAmountOfPoints + data.houseName);
         AddClass(serverhandler.HouseToAddPointsTo, data);
         ListOfData.GetListOfData().AddData(data);

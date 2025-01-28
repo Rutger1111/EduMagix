@@ -47,3 +47,6 @@ TagManager:
   - name: mask
     uniqueID: 669983585
     locked: 0
+  - name: Fill
+    uniqueID: 3912757565
+    locked: 0

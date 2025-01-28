@@ -96,14 +96,17 @@ public class Serverhandler : MonoBehaviour, IWorkers
 
     }
     public void SendClass(){
-        DebugTextCollector.GetTextCollector().AddDebugText("kwam hier");
-        ListOfData listOfData = ListOfData.GetListOfData();
-        Data data = listOfData.GetData(HouseToAddPointsTo);
-        
-        byte[] bytes = new Decryptor().SerializeDB(data);
-        DebugTextCollector.GetTextCollector().AddDebugText("sendData");
+        if(server.client != null){
+            DebugTextCollector.GetTextCollector().AddDebugText("kwam hier");
+            ListOfData listOfData = ListOfData.GetListOfData();
+            Data data = listOfData.GetData(HouseToAddPointsTo);
 
-        server.SendDataToClient(bytes);
+            byte[] bytes = new Decryptor().SerializeDB(data);
+            DebugTextCollector.GetTextCollector().AddDebugText("sendData");
+
+            server.SendDataToClient(bytes);
+        }
+
 
     }
 }

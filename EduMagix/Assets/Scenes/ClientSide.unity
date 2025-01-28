@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28765416, g: 0.4716981, b: 0.18912424, a: 1}
+  m_Color: {r: 0.2784314, g: 0.6, b: 0.6509804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6305,7 +6305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a552f8f612b7c1a43b12bf60f266c2dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houseImages: {fileID: 11400000, guid: 95f65fb1bdca13f4fbe0370e93277f18, type: 2}
+  houseImages: {fileID: 11400000, guid: 0a574b732333dc547afcd26925808e4b, type: 2}
   index: 0
   image: {fileID: 557681818}
 --- !u!114 &557681818
@@ -8152,7 +8152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44833574, g: 0.58680135, b: 0.6132076, a: 1}
+  m_Color: {r: 0.2784314, g: 0.6, b: 0.6509804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9353,7 +9353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2528302, g: 0.2528302, b: 0.2528302, a: 1}
+  m_Color: {r: 0.2784314, g: 0.6, b: 0.6509804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11486,7 +11486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Klas aanmaken
+  m_text: Klas aanpassen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16403,7 +16403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4708971, g: 0.6981132, b: 0.5231408, a: 1}
+  m_Color: {r: 0.2784314, g: 0.6, b: 0.6509804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
