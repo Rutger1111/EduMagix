@@ -1,15 +1,15 @@
-using UnityEngine;
 using System;
-using System.Net.Sockets;
 using System.Text;
-using System.Threading;
-using System.Collections.Generic;
 using System.Net;
-using System.IO;
-using Unity.VisualScripting;
+using System.Net.Sockets;
+using System.Threading;
+using UnityEngine;
+using System.Collections.Generic;
 
-public class Client : MonoBehaviour
+
+public class RemoteTcpServer : MonoBehaviour
 {
+
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
     public int serverPort = 33435;             // Set this to your server's port.
     private string messageToSend = "Hello Server!"; // The message to send.
@@ -17,7 +17,7 @@ public class Client : MonoBehaviour
     TcpClient client;
     private NetworkStream stream;
     private Thread clientReceiveThread;
-    public ClientHandler clientHandler;
+    public RemoteServerhandler clientHandler;
     public ISliderSetUpCommand sliderSetUpCommand;
     DebugTextCollector textCollector;
 
@@ -118,8 +118,8 @@ public class Client : MonoBehaviour
                             Data data = new Decryptor().DeserializeDB(bytes);
                             textCollector.AddDebugText("klaspunten" + data.currentAmountOfPoints);
                             ListOfData.GetListOfData().AddData(data);
-                            clientHandler.datas.Add(data);
-                            clientHandler.baseCommandClasses.Add(sliderSetUpCommand);
+                            //clientHandler.datas.Add(data);
+                            //clientHandler.baseCommandClasses.Add(sliderSetUpCommand);
                             SendMessageToServer("Received");
                             textCollector.AddDebugText("sendtMessage");
                         }
@@ -149,7 +149,13 @@ public class Client : MonoBehaviour
         stream.Write(data, 0, data.Length);
         Debug.Log("Sent message to server: " + message);
     }
+    public void SendDataToClient(byte[] bytes){
+        textCollector.AddDebugText("client: " + client);
+        print(stream);
+        stream.Write(bytes,0, bytes.Length);
+        textCollector.AddDebugText("written stream" + bytes);
 
+    }
     void OnApplicationQuit()
     {
         if (stream != null)

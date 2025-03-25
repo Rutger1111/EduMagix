@@ -2787,7 +2787,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 882007200}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Database, Assembly-CSharp
         m_MethodName: AddPoints
         m_Mode: 2
@@ -6445,7 +6445,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 882007200}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Database, Assembly-CSharp
         m_MethodName: AddPoints
         m_Mode: 2
@@ -7294,9 +7294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f4ff6f95c04d548b8f398f83fd42de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initiateData: {fileID: 882007203}
+  initiateData: {fileID: 0}
   server: {fileID: 296247009}
-  database: {fileID: 882007200}
+  database: {fileID: 0}
   houseNameInputfield: {fileID: 450078384}
   housePointsInputfield: {fileID: 987032461}
   houseStudentCount: {fileID: 490212427}
@@ -9033,10 +9033,8 @@ GameObject:
   - component: {fileID: 882007197}
   - component: {fileID: 882007196}
   - component: {fileID: 882007199}
-  - component: {fileID: 882007200}
   - component: {fileID: 882007201}
   - component: {fileID: 882007202}
-  - component: {fileID: 882007203}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9131,20 +9129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SavedDatas: []
---- !u!114 &882007200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882007195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1dfa2869a7eead49afe3155591ae785, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testTexture: 
-  serverhandler: {fileID: 296247008}
 --- !u!114 &882007201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9172,23 +9156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 4955593601619518197, guid: 5ae275f8e028a914e9e207541daba7c3, type: 3}
   content: {fileID: 1538347163}
---- !u!114 &882007203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882007195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7695bf97d0759084ca8f70f9964b6d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuHandler: {fileID: 882007201}
-  serverhandler: {fileID: 296247008}
-  buttonPrefab: {fileID: 4924438538944713056, guid: 66676c86159756945ba1dd5792e42dfd, type: 3}
-  database: {fileID: 882007200}
-  contentObject: {fileID: 1226096280}
 --- !u!1 &884929128
 GameObject:
   m_ObjectHideFlags: 0
@@ -14657,7 +14624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuHandler: {fileID: 882007201}
   serverhandler: {fileID: 296247008}
-  database: {fileID: 882007200}
+  database: {fileID: 0}
   houseNameInputfield: {fileID: 444134464}
   housePointsInputfield: {fileID: 241770873}
   houseStudentCount: {fileID: 122745288}
@@ -16800,7 +16767,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 882007200}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Database, Assembly-CSharp
         m_MethodName: ReadAllClass
         m_Mode: 1
@@ -17574,7 +17541,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 882007200}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Database, Assembly-CSharp
         m_MethodName: ReadAllClass
         m_Mode: 1

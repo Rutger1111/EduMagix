@@ -12,6 +12,9 @@ public class TcpServer : MonoBehaviour, IDisposable
 
     TcpListener server = null;
     public TcpClient client = null;
+    public TcpClient serverClient = null;
+    public TcpClient tempClient = null;
+
     NetworkStream stream = null;
     Thread thread;
     public List<TcpClient> Clients;
